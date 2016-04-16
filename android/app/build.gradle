@@ -150,4 +150,5 @@ dependencies {
     compile project(':react-native-push-notification')
     compile project(':react-native-share')
     compile project(':react-native-fbsdk')
+    compile project(':react-native-send-intent')
 }

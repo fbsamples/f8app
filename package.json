@@ -28,6 +28,7 @@
     "react-native-fbsdk": "github:facebook/react-native-fbsdk#0.1.0-alpha.1",
     "react-native-linear-gradient": "~1.5.0",
     "react-native-push-notification": "frantic/react-native-push-notification#7142da7",
+    "react-native-send-intent": "^1.0.7",
     "react-native-share": "frantic/react-native-share#674df947b3",
     "react-redux": "~4.3.0",
     "react-relay": "~0.7.3",
