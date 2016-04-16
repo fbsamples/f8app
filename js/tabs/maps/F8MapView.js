@@ -49,18 +49,6 @@ class F8MapView extends React.Component {
   render() {
     const {map1, map2} = this.props;
 
-	var map1Name = 'Overview';
-	var map2Name = 'Developer Garage';
-
-  	var readerEmptyListMap1 = <View />;
-  	var readerEmptyListMap2 = <View />;
-  	if(map1 && map2) {
-  		readerEmptyListMap1 = <MapView map={map1} />;
-  		readerEmptyListMap2 = <MapView map={map2} />;
-  		
-  		map1Name = map1.name;
-  		map2Name = map2.name;
-  	}
 	    
     return (
       <View style={styles.container}>
@@ -69,12 +57,12 @@ class F8MapView extends React.Component {
           backgroundImage={require('./img/maps-background.png')}
           backgroundColor={'#9176D2'}>
           <PureListView
-            title={map1Name}
-            renderEmptyList={() => readerEmptyListMap1}
+            title='Overview'
+            renderEmptyList={() => <MapView map={map1} />}
           />
           <PureListView
-            title={map2Name}
-            renderEmptyList={() => readerEmptyListMap2}
+            title='Developer Garage'
+            renderEmptyList={() => <MapView map={map2} />}
           />
         </ListContainer>
         <F8Button
