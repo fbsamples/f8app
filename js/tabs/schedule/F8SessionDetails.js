@@ -43,8 +43,8 @@ var View = require('View');
 var AddToScheduleButton = require('./AddToScheduleButton');
 
 var formatDuration = require('./formatDuration');
-var {connect} = require('react-redux');
-var {addToSchedule, removeFromScheduleWithPrompt} = require('../../actions');
+var { connect } = require('react-redux');
+var { addToSchedule, openLoginModal, openShare, removeFromScheduleWithPrompt } = require('../../actions');
 
 var F8SessionDetails = React.createClass({
   mixins: [Subscribable.Mixin],
@@ -174,14 +174,11 @@ var F8SessionDetails = React.createClass({
 
   addToSchedule: function() {
     if (!this.props.isLoggedIn) {
-      this.props.navigator.push({
-        login: true, // TODO: Proper route
-        callback: this.addToSchedule,
-      });
+      this.props.openLoginModal(this.addToSchedule);
     } else {
       this.props.addToSchedule();
       if (this.props.sharedSchedule === null) {
-        setTimeout(() => this.props.navigator.push({share: true}), 1000);
+        setTimeout(() => this.props.openShare(), 1000);
       }
     }
   },
@@ -330,6 +327,8 @@ function actions(dispatch, props) {
   let id = props.session.id;
   return {
     addToSchedule: () => dispatch(addToSchedule(id)),
+    openLoginModal: (cb) => dispatch(openLoginModal(cb)),
+    openShare: () => dispatch(openShare()),
     removeFromScheduleWithPrompt:
       () => dispatch(removeFromScheduleWithPrompt(props.session)),
   };

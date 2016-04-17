@@ -131,7 +131,7 @@ function setSharingEnabled(enabled: boolean): ThunkAction {
 }
 
 function shareSession(session: Session): ThunkAction {
-  return (dispatch, getState) => {
+  return (dispatch, getState) => { debugger;
     const {sessionURLTemplate} = getState().config;
     const url = sessionURLTemplate
       .replace('{slug}', session.slug)

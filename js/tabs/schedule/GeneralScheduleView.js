@@ -35,7 +35,7 @@ var ScheduleListView = require('./ScheduleListView');
 var FilterScreen = require('../../filter/FilterScreen');
 
 var { connect } = require('react-redux');
-var {switchDay} = require('../../actions');
+var { openFilter, switchDay } = require('../../actions');
 
 import type {Session} from '../../reducers/sessions';
 
@@ -137,7 +137,7 @@ class GeneralScheduleView extends React.Component {
 
   openFilterScreen() {
     if (Platform.OS === 'ios') {
-      this.props.navigator.push({ filter: 123 });
+      this.props.openFilter();
     } else {
       this._drawer && this._drawer.openDrawer();
     }
@@ -159,6 +159,7 @@ function select(store) {
 function actions(dispatch) {
   return {
     switchDay: (day) => dispatch(switchDay(day)),
+    openFilter: (day) => dispatch(openFilter(day)),
   };
 }
 

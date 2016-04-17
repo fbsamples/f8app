@@ -25,18 +25,19 @@
 
 var F8SessionCell = require('F8SessionCell');
 var FilterSessions = require('./filterSessions');
-var Navigator = require('Navigator');
 var React = require('React');
 var SessionsSectionHeader = require('./SessionsSectionHeader');
 var PureListView = require('../../common/PureListView');
 var groupSessions = require('./groupSessions');
+
+var { connect } = require('react-redux');
+var { openSession } = require('../../actions');
 
 import type {Session} from '../../reducers/sessions';
 
 type Props = {
   day: number;
   sessions: Array<Session>;
-  navigator: Navigator;
   renderEmptyList?: (day: number) => ReactElement;
 };
 
@@ -99,11 +100,7 @@ class ScheduleListView extends React.Component {
   }
 
   openSession(session: Session, day: number) {
-    this.props.navigator.push({
-      day,
-      session,
-      allSessions: this.state.todaySessions,
-    });
+    this.props.openSession(session, day);
   }
 
   storeInnerRef(ref: ?PureListView) {
@@ -118,5 +115,15 @@ class ScheduleListView extends React.Component {
     return this._innerRef && this._innerRef.getScrollResponder();
   }
 }
+
+function actions(dispatch) {
+  return {
+    openSession: (session, day) => {
+      dispatch(openSession(session, day));
+    },
+  };
+}
+
+ScheduleListView = connect(null, actions, null, { withRef: true})(ScheduleListView);
 
 module.exports = ScheduleListView;

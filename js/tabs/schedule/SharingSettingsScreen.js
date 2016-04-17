@@ -35,7 +35,7 @@ var F8Header = require('F8Header');
 var StatusBar = require('StatusBar');
 var SharingSettingsCommon = require('./SharingSettingsCommon');
 
-var { setSharingEnabled, logOutWithPrompt } = require('../../actions');
+var { back, setSharingEnabled, logOutWithPrompt } = require('../../actions');
 var { connect } = require('react-redux');
 
 import type {State as User} from '../../reducers/user';
@@ -81,7 +81,7 @@ class SharingSettingsScreen extends React.Component {
             icon: require('../../common/img/back.png'),
             title: 'Back',
             layout: 'icon',
-            onPress: () => this.props.navigator.pop(),
+            onPress: () => this.props.dispatch(back()),
           }}
           rightItem={{
             icon: require('./img/logout.png'),

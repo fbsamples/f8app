@@ -31,19 +31,15 @@ const F8PageControl = require('F8PageControl');
 const F8Header = require('F8Header');
 const StyleSheet = require('F8StyleSheet');
 const Platform = require('Platform');
+const Text = require('Text');
+const View = require('View');
 const formatTime = require('./formatTime');
 const Carousel = require('../../common/Carousel');
 
-const {connect} = require('react-redux');
-const {loadFriendsSchedules, shareSession} = require('../../actions');
+const { connect } = require('react-redux');
+const { back, loadFriendsSchedules, shareSession } = require('../../actions');
 
 import type {Dispatch} from '../../actions/types';
-
-const {
-  Text,
-  View,
-  Navigator,
-} = React;
 
 import type {Session} from '../../reducers/sessions';
 
@@ -56,7 +52,6 @@ type Context = {
 type Props = {
   allSessions?: {[sectionID: string]: {[sessionID: string]: Session}};
   session: Session;
-  navigator: Navigator;
   dispatch: Dispatch;
 };
 
@@ -165,7 +160,6 @@ class SessionsCarusel extends React.Component {
     return (
       <F8SessionDetails
         style={styles.card}
-        navigator={this.props.navigator}
         session={this.state.flatSessionsList[index]}
         onShare={this.shareCurrentSession}
       />
@@ -183,7 +177,7 @@ class SessionsCarusel extends React.Component {
   }
 
   dismiss() {
-    this.props.navigator.pop();
+    this.props.dispatch(back());
   }
 
   handleIndexChange(selectedIndex: number) {

@@ -27,16 +27,14 @@ var F8Button = require('F8Button');
 var React = require('React');
 var StyleSheet = require('StyleSheet');
 var View = require('View');
-var Navigator = require('Navigator');
 var FriendsUsingApp = require('./FriendsUsingApp');
 var SharingSettingsCommon = require('./SharingSettingsCommon');
 
-var { setSharingEnabled } = require('../../actions');
+var { back, setSharingEnabled } = require('../../actions');
 var { connect } = require('react-redux');
 
 class SharingSettingsModal extends React.Component {
   props: {
-    navigator: Navigator;
     dispatch: () => void;
   };
 
@@ -63,7 +61,7 @@ class SharingSettingsModal extends React.Component {
 
   handleSetSharing(enabled: boolean) {
     this.props.dispatch(setSharingEnabled(enabled));
-    this.props.navigator.pop();
+    this.props.dispatch(back());
   }
 }
 

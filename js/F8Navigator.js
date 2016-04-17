@@ -29,18 +29,20 @@ var React = require('React');
 var Platform = require('Platform');
 var BackAndroid = require('BackAndroid');
 var F8TabsView = require('F8TabsView');
+var F8NavigationCard = require('./F8NavigationCard');
 var FriendsScheduleView = require('./tabs/schedule/FriendsScheduleView');
 var FilterScreen = require('./filter/FilterScreen');
 var LoginModal = require('./login/LoginModal');
-var Navigator = require('Navigator');
+var LoginScreen = require('./login/LoginScreen');
 var SessionsCarousel = require('./tabs/schedule/SessionsCarousel');
 var SharingSettingsModal = require('./tabs/schedule/SharingSettingsModal');
 var SharingSettingsScreen = require('./tabs/schedule/SharingSettingsScreen');
 var ThirdPartyNotices = require('./tabs/info/ThirdPartyNotices');
 var RatingScreen = require('./rating/RatingScreen');
 var StyleSheet = require('StyleSheet');
+var NavigationExperimental = require('NavigationExperimental');
 var { connect } = require('react-redux');
-var { switchTab } = require('./actions');
+var { back, switchTab } = require('./actions');
 
 var F8Navigator = React.createClass({
   _handlers: ([]: Array<() => boolean>),
@@ -75,9 +77,8 @@ var F8Navigator = React.createClass({
       }
     }
 
-    const {navigator} = this.refs;
-    if (navigator && navigator.getCurrentRoutes().length > 1) {
-      navigator.pop();
+    if (true) { // todo: cjeck of we ca ngo back
+      this.props.dispatch(back());
       return true;
     }
 
@@ -88,81 +89,120 @@ var F8Navigator = React.createClass({
     return false;
   },
 
+  // render: function() {
+  //   return (
+  //     <Navigator
+  //       ref="navigator"
+  //       style={styles.container}
+  //       configureScene={(route) => {
+  //         if (Platform.OS === 'android') {
+  //           return Navigator.SceneConfigs.FloatFromBottomAndroid;
+  //         }
+  //         // TODO: Proper scene support
+  //         if (route.shareSettings || route.friend) {
+  //           return Navigator.SceneConfigs.FloatFromRight;
+  //         } else {
+  //           return Navigator.SceneConfigs.FloatFromBottom;
+  //         }
+  //       }}
+  //       initialRoute={{}}
+  //       renderScene={this.renderScene}
+  //     />
+  //   );
+  // },
+
   render: function() {
+    console.log('bah', this.props.openModals)
     return (
-      <Navigator
-        ref="navigator"
+      <NavigationExperimental.AnimatedView
         style={styles.container}
-        configureScene={(route) => {
-          if (Platform.OS === 'android') {
-            return Navigator.SceneConfigs.FloatFromBottomAndroid;
-          }
-          // TODO: Proper scene support
-          if (route.shareSettings || route.friend) {
-            return Navigator.SceneConfigs.FloatFromRight;
-          } else {
-            return Navigator.SceneConfigs.FloatFromBottom;
+        renderScene={this.renderScene}
+        onNavigate={(action) => {
+          if (action.type === 'back') {
+            this.props.dispatch(back());
           }
         }}
-        initialRoute={{}}
-        renderScene={this.renderScene}
+        navigationState={{
+          key: 'F8NavigatorState',
+          index: this.props.openModals.length - 1,
+          children: this.props.openModals,
+        }}
       />
     );
   },
 
-  renderScene: function(route, navigator) {
-    if (route.allSessions) {
+  renderScene: function(props) {
+    const sceneState = props.scene.navigationState;
+    let isVertical = true;
+    if (sceneState.type === 'ShareSettings') {
+      isVertical = false;
+    }
+    return (
+      <F8NavigationCard
+        isVertical={isVertical}
+        renderScene={this.renderInnerScene}
+        {...props}>
+        {this.renderInnerScene(props)}
+      </F8NavigationCard>
+    );
+  },
+
+  renderInnerScene: function(props) {
+    const sceneState = props.scene.navigationState;
+    // if (route.allSessions) {
+    //   return (
+    //     <SessionsCarousel
+    //       {...route}
+    //     />
+    //   );
+    // }
+    console.log('renderign scene', sceneState);
+    if (sceneState.type === 'Session') {
       return (
         <SessionsCarousel
-          {...route}
-          navigator={navigator}
+          session={sceneState.session}
         />
       );
     }
-    if (route.session) {
+    if (sceneState.type === 'Filter') {
       return (
-        <SessionsCarousel
-          session={route.session}
-          navigator={navigator}
-        />
+        <FilterScreen />
       );
     }
-    if (route.filter) {
-      return (
-        <FilterScreen navigator={navigator} />
-      );
-    }
-    if (route.friend) {
-      return (
-        <FriendsScheduleView
-          friend={route.friend}
-          navigator={navigator}
-        />
-      );
-    }
-    if (route.login) {
+    // if (route.friend) {
+    //   return (
+    //     <FriendsScheduleView
+    //       friend={route.friend}
+    //     />
+    //   );
+    // }
+    // if (sceneState.type === 'InitialLogin') {
+    //   return (
+    //     <LoginScreen />
+    //   );
+    // }
+    if (sceneState.type === 'LoginModal') {
       return (
         <LoginModal
-          navigator={navigator}
-          onLogin={route.callback}
+          onLogin={() => {}}
         />
       );
     }
-    if (route.share) {
+    if (sceneState.type === 'Share') {
       return (
-        <SharingSettingsModal navigator={navigator} />
+        <SharingSettingsModal />
       );
     }
-    if (route.shareSettings) {
-      return <SharingSettingsScreen navigator={navigator} />;
+    if (sceneState.type === 'ShareSettings') {
+      return <SharingSettingsScreen />;
     }
-    if (route.rate) {
-      return <RatingScreen navigator={navigator} surveys={route.surveys} />;
-    }
-    if (route.notices) {
-      return <ThirdPartyNotices navigator={navigator} />;
-    }
-    return <F8TabsView navigator={navigator} />;
+    // if (route.rate) {
+    //   return <RatingScreen surveys={route.surveys} />;
+    // }
+    // if (route.notices) {
+    //   return <ThirdPartyNotices />;
+    // }
+    return <F8TabsView />;
   },
 });
 
@@ -181,6 +221,7 @@ var styles = StyleSheet.create({
 function select(store) {
   return {
     tab: store.navigation.tab,
+    openModals: store.navigation.openModals,
     isLoggedIn: store.user.isLoggedIn || store.user.hasSkippedLogin,
   };
 }

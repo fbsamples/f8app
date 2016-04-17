@@ -28,7 +28,6 @@ var F8Button = require('F8Button');
 var FilterSessions = require('./filterSessions');
 var ListContainer = require('ListContainer');
 var LoginButton = require('../../common/LoginButton');
-var Navigator = require('Navigator');
 var ProfilePicture = require('../../common/ProfilePicture');
 var React = require('React');
 var PureListView = require('../../common/PureListView');
@@ -42,6 +41,7 @@ var {
   switchTab,
   switchDay,
   loadFriendsSchedules,
+  openSharingSettings,
 } = require('../../actions');
 
 import type {Session} from '../../reducers/sessions';
@@ -57,7 +57,6 @@ type Props = {
   sessions: Array<Session>;
   friends: Array<FriendsSchedule>;
   schedule: Schedule;
-  navigator: Navigator;
   logOut: () => void;
   jumpToSchedule: (day: number) => void;
   loadFriendsSchedules: () => void;
@@ -116,19 +115,16 @@ class MyScheduleView extends React.Component {
         day={1}
         sessions={this.props.sessions}
         renderEmptyList={this.renderEmptySessionsList}
-        navigator={this.props.navigator}
       />,
       <ScheduleListView
         title="Day 2"
         day={2}
         sessions={this.props.sessions}
         renderEmptyList={this.renderEmptySessionsList}
-        navigator={this.props.navigator}
       />,
       <FriendsListView
         title="Friends"
         friends={this.props.friends}
-        navigator={this.props.navigator}
       />,
     ];
   }
@@ -159,7 +155,7 @@ class MyScheduleView extends React.Component {
   }
 
   openSharingSettings() {
-    this.props.navigator.push({shareSettings: 1});
+    this.props.openSharingSettings();
   }
 
   handleSegmentChanged(segment) {
@@ -195,6 +191,7 @@ function actions(dispatch) {
       switchDay(day),
     ]),
     loadFriendsSchedules: () => dispatch(loadFriendsSchedules()),
+    openSharingSettings: () => dispatch(openSharingSettings()),
   };
 }
 

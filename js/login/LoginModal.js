@@ -31,11 +31,12 @@ var StyleSheet = require('StyleSheet');
 var { Text } = require('F8Text');
 var View = require('View');
 var F8Button = require('F8Button');
-var Navigator = require('Navigator');
+
+var { connect } = require('react-redux');
+var { back } = require('../actions');
 
 class LoginModal extends React.Component {
   props: {
-    navigator: Navigator;
     onLogin: () => void;
   };
 
@@ -56,7 +57,7 @@ class LoginModal extends React.Component {
             type="secondary"
             caption="Not Now"
             source="Modal"
-            onPress={() => this.props.navigator.pop()}
+            onPress={() => this.props.back()}
           />
         </Image>
       </View>
@@ -64,10 +65,16 @@ class LoginModal extends React.Component {
   }
 
   loggedIn() {
-    this.props.navigator.pop();
+    this.props.back();
     this.props.onLogin();
   }
 }
+
+const actions = (dispatch, props) => ({
+  back: () => dispatch(back()),
+});
+
+LoginModal = connect(null, actions)(LoginModal);
 
 var styles = StyleSheet.create({
   container: {
