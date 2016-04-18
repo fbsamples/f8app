@@ -49,6 +49,8 @@ import com.facebook.reactnative.androidsdk.FBSDKPackage;
 
 import cl.json.RNSharePackage;
 
+import com.burnweb.rnsendintent.RNSendIntentPackage;
+
 public class MainActivity extends ReactActivity {
   private CodePush _codePush;
   private ReactNativePushNotificationPackage _pushNotification;
@@ -92,6 +94,7 @@ public class MainActivity extends ReactActivity {
         new FBSDKPackage(mCallbackManager),
         new LinearGradientPackage(),
         new RNSharePackage(),
+        new RNSendIntentPackage(),
         this._codePush.getReactPackage(),
         this._pushNotification
       );
