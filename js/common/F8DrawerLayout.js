@@ -56,7 +56,7 @@ class F8DrawerLayout extends React.Component {
   }
 
   componentWillUnmount() {
-    this.context.removeBackButtonListener(this.closeDrawer);
+    this.context.removeBackButtonListener(this.handleBackButton);
     this._drawer = null;
   }
 
