@@ -37,13 +37,20 @@ export type Action =
   | { type: 'SUBMITTED_SURVEY_ANSWERS', id: string; }
   | { type: 'LOGGED_IN', source: ?string; data: { id: string; name: string; sharedSchedule: ?boolean; } }
   | { type: 'RESTORED_SCHEDULE', list: Array<ParseObject> }
-  | { type: 'SKIPPED_LOGIN' }
   | { type: 'LOGGED_OUT' }
+  | { type: 'BACK' }
   | { type: 'SESSION_ADDED', id: string }
   | { type: 'SESSION_REMOVED', id: string }
   | { type: 'SET_SHARING', enabled: boolean }
   | { type: 'APPLY_TOPICS_FILTER', topics: {[key: string]: boolean} }
+  | { type: 'OPEN_FRIEND', friend: string }
+  | { type: 'OPEN_NAV_DRAWER' }
+  | { type: 'OPEN_FILTER' }
   | { type: 'CLEAR_FILTER' }
+  | { type: 'OPEN_SESSION', session: string, day: 1 | 2 }
+  | { type: 'OPEN_SHARING_SETTINGS' }
+  | { type: 'OPEN_LOGIN_MODAL' }
+  | { type: 'OPEN_SHARE' }
   | { type: 'SWITCH_DAY', day: 1 | 2 }
   | { type: 'SWITCH_TAB', tab: 'schedule' | 'my-schedule' | 'map' | 'notifications' | 'info' }
   | { type: 'TURNED_ON_PUSH_NOTIFICATIONS' }

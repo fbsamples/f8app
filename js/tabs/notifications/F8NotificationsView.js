@@ -39,6 +39,7 @@ var View = require('View');
 var findSessionByURI = require('findSessionByURI');
 var { connect } = require('react-redux');
 var {
+  openSession,
   turnOnPushNotifications,
   skipPushNotifications,
   TEST_MENU,
@@ -131,7 +132,7 @@ class F8NotificationsView extends React.Component {
     if (notification.url) {
       var session = findSessionByURI(this.props.sessions, notification.url);
       if (session) {
-        this.props.navigator.push({session});
+        this.props.openSession(session.id, session.day);
       } else {
         Linking.openURL(notification.url);
       }
@@ -198,6 +199,7 @@ function select(state) {
 
 function actions(dispatch) {
   return {
+    openSession: (session, day) => dispatch(openSession(session, day)),
     onTurnOnNotifications: () => dispatch(turnOnPushNotifications()),
     onSkipNotifications: () => dispatch(skipPushNotifications()),
     dispatch,

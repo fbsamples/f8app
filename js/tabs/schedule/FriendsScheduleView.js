@@ -23,7 +23,6 @@
  */
 'use strict';
 
-var Navigator = require('Navigator');
 var ProfilePicture = require('../../common/ProfilePicture');
 var React = require('React');
 var EmptySchedule = require('./EmptySchedule');
@@ -32,6 +31,7 @@ var ListContainer = require('ListContainer');
 var ScheduleListView = require('./ScheduleListView');
 
 var { connect } = require('react-redux');
+import {back} from '../../actions/';
 
 import type {Session} from '../../reducers/sessions';
 import type {FriendsSchedule} from '../../reducers/friendsSchedules';
@@ -39,9 +39,9 @@ import type {FriendsSchedule} from '../../reducers/friendsSchedules';
 var { createSelector } = require('reselect');
 
 type Props = {
+  back: Function;
   sessions: Array<Session>;
   friend: FriendsSchedule;
-  navigator: Navigator;
 };
 
 class FriendsScheduleView extends React.Component {
@@ -55,7 +55,7 @@ class FriendsScheduleView extends React.Component {
   render() {
     const backItem = {
       icon: require('../../common/img/back_white.png'),
-      onPress: () => this.props.navigator.pop(),
+      onPress: () => this.props.back(),
     };
     const firstName = this.props.friend.name.split(' ')[0];
     return (
@@ -71,14 +71,12 @@ class FriendsScheduleView extends React.Component {
           day={1}
           sessions={this.props.sessions}
           renderEmptyList={this.renderEmptyList}
-          navigator={this.props.navigator}
         />
         <ScheduleListView
           title="Day 2"
           day={2}
           sessions={this.props.sessions}
           renderEmptyList={this.renderEmptyList}
-          navigator={this.props.navigator}
         />
       </ListContainer>
     );
@@ -94,16 +92,30 @@ class FriendsScheduleView extends React.Component {
   }
 }
 
-const data = createSelector(
+const getFriend = (store, props) => store.friendsSchedules.find(s => s.id === props.friend);
+
+const getFriendSchedule = createSelector(
+  getFriend,
+  (friend) => friend.schedule,
+);
+
+const getSessions = createSelector(
   (store) => store.sessions,
-  (store, props) => props.friend.schedule,
+  getFriendSchedule,
   (sessions, schedule) => FilterSessions.bySchedule(sessions, schedule),
 );
 
 function select(store, props) {
   return {
-    sessions: data(store, props),
+    friend: getFriend(store, props),
+    sessions: getSessions(store, props),
   };
 }
 
-module.exports = connect(select)(FriendsScheduleView);
+function actions(dispatch) {
+  return {
+    back: () => dispatch(back()),
+  };
+}
+
+module.exports = connect(select, actions)(FriendsScheduleView);

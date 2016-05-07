@@ -29,18 +29,20 @@ var React = require('React');
 var Platform = require('Platform');
 var BackAndroid = require('BackAndroid');
 var F8TabsView = require('F8TabsView');
+var F8NavigationCard = require('./F8NavigationCard');
 var FriendsScheduleView = require('./tabs/schedule/FriendsScheduleView');
 var FilterScreen = require('./filter/FilterScreen');
 var LoginModal = require('./login/LoginModal');
-var Navigator = require('Navigator');
+var LoginScreen = require('./login/LoginScreen');
 var SessionsCarousel = require('./tabs/schedule/SessionsCarousel');
 var SharingSettingsModal = require('./tabs/schedule/SharingSettingsModal');
 var SharingSettingsScreen = require('./tabs/schedule/SharingSettingsScreen');
 var ThirdPartyNotices = require('./tabs/info/ThirdPartyNotices');
 var RatingScreen = require('./rating/RatingScreen');
 var StyleSheet = require('StyleSheet');
+var NavigationExperimental = require('NavigationExperimental');
 var { connect } = require('react-redux');
-var { switchTab } = require('./actions');
+var { back, switchTab } = require('./actions');
 
 var F8Navigator = React.createClass({
   _handlers: ([]: Array<() => boolean>),
@@ -74,95 +76,92 @@ var F8Navigator = React.createClass({
         return true;
       }
     }
-
-    const {navigator} = this.refs;
-    if (navigator && navigator.getCurrentRoutes().length > 1) {
-      navigator.pop();
-      return true;
-    }
-
-    if (this.props.tab !== 'schedule') {
-      this.props.dispatch(switchTab('schedule'));
-      return true;
-    }
-    return false;
+    this.props.dispatch(back());
+    // Ideally we could return false in the case that the reducer does not change
+    // the state, but we have no way to detect that from this function. Instead of
+    // returning false from here, we can exit the app on android by calling
+    // BackAndroid.exitApp from the navigation reducer.
+    return true;
   },
 
   render: function() {
     return (
-      <Navigator
-        ref="navigator"
+      <NavigationExperimental.AnimatedView
         style={styles.container}
-        configureScene={(route) => {
-          if (Platform.OS === 'android') {
-            return Navigator.SceneConfigs.FloatFromBottomAndroid;
-          }
-          // TODO: Proper scene support
-          if (route.shareSettings || route.friend) {
-            return Navigator.SceneConfigs.FloatFromRight;
-          } else {
-            return Navigator.SceneConfigs.FloatFromBottom;
+        renderScene={this.renderScene}
+        onNavigate={(action) => {
+          if (action.type === 'back') {
+            this.props.dispatch(back());
           }
         }}
-        initialRoute={{}}
-        renderScene={this.renderScene}
+        navigationState={{
+          key: 'F8NavigatorState',
+          index: this.props.openModals.length - 1,
+          children: this.props.openModals,
+        }}
       />
     );
   },
 
-  renderScene: function(route, navigator) {
-    if (route.allSessions) {
+  renderScene: function(props) {
+    const sceneState = props.scene.navigationState;
+    let isVertical = true;
+    if (sceneState.type === 'ShareSettings') {
+      isVertical = false;
+    }
+    return (
+      <F8NavigationCard
+        isVertical={isVertical}
+        renderScene={this.renderInnerScene}
+        {...props}>
+        {this.renderInnerScene(props)}
+      </F8NavigationCard>
+    );
+  },
+
+  renderInnerScene: function(props) {
+    const sceneState = props.scene.navigationState;
+    if (sceneState.type === 'Session') {
       return (
         <SessionsCarousel
-          {...route}
-          navigator={navigator}
+          session={sceneState.session}
+          day={sceneState.day}
         />
       );
     }
-    if (route.session) {
+    if (sceneState.type === 'Filter') {
       return (
-        <SessionsCarousel
-          session={route.session}
-          navigator={navigator}
-        />
+        <FilterScreen />
       );
     }
-    if (route.filter) {
-      return (
-        <FilterScreen navigator={navigator} />
-      );
-    }
-    if (route.friend) {
+    if (sceneState.type === 'Friend') {
       return (
         <FriendsScheduleView
-          friend={route.friend}
-          navigator={navigator}
+          friend={sceneState.friend}
         />
       );
     }
-    if (route.login) {
+    if (sceneState.type === 'InitialLogin') {
+      return (
+        <LoginScreen />
+      );
+    }
+    if (sceneState.type === 'LoginModal') {
       return (
         <LoginModal
-          navigator={navigator}
-          onLogin={route.callback}
+          onLogin={() => {}}
         />
       );
     }
-    if (route.share) {
+    if (sceneState.type === 'Share') {
       return (
-        <SharingSettingsModal navigator={navigator} />
+        <SharingSettingsModal />
       );
     }
-    if (route.shareSettings) {
-      return <SharingSettingsScreen navigator={navigator} />;
+    if (sceneState.type === 'ShareSettings') {
+      return <SharingSettingsScreen />;
     }
-    if (route.rate) {
-      return <RatingScreen navigator={navigator} surveys={route.surveys} />;
-    }
-    if (route.notices) {
-      return <ThirdPartyNotices navigator={navigator} />;
-    }
-    return <F8TabsView navigator={navigator} />;
+    return <F8TabsView />;
   },
 });
 
@@ -181,7 +180,7 @@ var styles = StyleSheet.create({
 function select(store) {
   return {
     tab: store.navigation.tab,
-    isLoggedIn: store.user.isLoggedIn || store.user.hasSkippedLogin,
+    openModals: store.navigation.openModals,
   };
 }
 

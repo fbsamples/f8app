@@ -28,21 +28,19 @@ var React = require('React');
 var StyleSheet = require('StyleSheet');
 var { Text } = require('F8Text');
 var FriendsUsingApp = require('./FriendsUsingApp');
-var Navigator = require('Navigator');
 var Switch = require('Switch');
 var View = require('View');
 var F8Header = require('F8Header');
 var StatusBar = require('StatusBar');
 var SharingSettingsCommon = require('./SharingSettingsCommon');
 
-var { setSharingEnabled, logOutWithPrompt } = require('../../actions');
+var { back, setSharingEnabled, logOutWithPrompt } = require('../../actions');
 var { connect } = require('react-redux');
 
 import type {State as User} from '../../reducers/user';
 
 class SharingSettingsScreen extends React.Component {
   props: {
-    navigator: Navigator;
     dispatch: () => void;
     sharedSchedule: boolean;
     user: User;
@@ -81,7 +79,7 @@ class SharingSettingsScreen extends React.Component {
             icon: require('../../common/img/back.png'),
             title: 'Back',
             layout: 'icon',
-            onPress: () => this.props.navigator.pop(),
+            onPress: () => this.props.dispatch(back()),
           }}
           rightItem={{
             icon: require('./img/logout.png'),

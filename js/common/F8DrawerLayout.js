@@ -34,11 +34,8 @@ class F8DrawerLayout extends React.Component {
   constructor(props: any, context: any) {
     super(props, context);
 
-    this.openDrawer = this.openDrawer.bind(this);
-    this.closeDrawer = this.closeDrawer.bind(this);
     this.onDrawerOpen = this.onDrawerOpen.bind(this);
     this.onDrawerClose = this.onDrawerClose.bind(this);
-    this.handleBackButton = this.handleBackButton.bind(this);
   }
 
   render() {
@@ -55,38 +52,25 @@ class F8DrawerLayout extends React.Component {
     );
   }
 
+  componentDidUpdate(lastProps: any) {
+    if (this.props.isOpen && !lastProps.isOpen) {
+      this._drawer && this._drawer.openDrawer();
+    } else if (!this.props.open && lastProps.isOpen) {
+      this._drawer && this._drawer.closeDrawer();
+    }
+  }
+
   componentWillUnmount() {
-    this.context.removeBackButtonListener(this.handleBackButton);
     this._drawer = null;
   }
 
-  handleBackButton(): boolean {
-    this.closeDrawer();
-    return true;
-  }
-
   onDrawerOpen() {
-    this.context.addBackButtonListener(this.handleBackButton);
-    this.props.onDrawerOpen && this.props.onDrawerOpen();
+    // TODO: Fire props.onDrawerOpen and onDrawerClose at the right times
   }
 
   onDrawerClose() {
-    this.context.removeBackButtonListener(this.handleBackButton);
-    this.props.onDrawerClose && this.props.onDrawerClose();
-  }
-
-  closeDrawer() {
-    this._drawer && this._drawer.closeDrawer();
-  }
-
-  openDrawer() {
-    this._drawer && this._drawer.openDrawer();
+    // TODO: Fire props.onDrawerOpen and onDrawerClose at the right times
   }
 }
-
-F8DrawerLayout.contextTypes = {
-  addBackButtonListener: React.PropTypes.func,
-  removeBackButtonListener: React.PropTypes.func,
-};
 
 module.exports = F8DrawerLayout;

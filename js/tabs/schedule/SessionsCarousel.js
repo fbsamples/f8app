@@ -31,19 +31,19 @@ const F8PageControl = require('F8PageControl');
 const F8Header = require('F8Header');
 const StyleSheet = require('F8StyleSheet');
 const Platform = require('Platform');
+const Text = require('Text');
+const View = require('View');
 const formatTime = require('./formatTime');
+const groupSessions = require('./groupSessions');
+const filterSessions = require('./filterSessions');
 const Carousel = require('../../common/Carousel');
 
-const {connect} = require('react-redux');
-const {loadFriendsSchedules, shareSession} = require('../../actions');
+const { connect } = require('react-redux');
+const { back, loadFriendsSchedules, shareSession } = require('../../actions');
+
+const { createSelector } = require('reselect');
 
 import type {Dispatch} from '../../actions/types';
-
-const {
-  Text,
-  View,
-  Navigator,
-} = React;
 
 import type {Session} from '../../reducers/sessions';
 
@@ -56,7 +56,6 @@ type Context = {
 type Props = {
   allSessions?: {[sectionID: string]: {[sessionID: string]: Session}};
   session: Session;
-  navigator: Navigator;
   dispatch: Dispatch;
 };
 
@@ -165,7 +164,6 @@ class SessionsCarusel extends React.Component {
     return (
       <F8SessionDetails
         style={styles.card}
-        navigator={this.props.navigator}
         session={this.state.flatSessionsList[index]}
         onShare={this.shareCurrentSession}
       />
@@ -183,7 +181,7 @@ class SessionsCarusel extends React.Component {
   }
 
   dismiss() {
-    this.props.navigator.pop();
+    this.props.dispatch(back());
   }
 
   handleIndexChange(selectedIndex: number) {
@@ -248,4 +246,17 @@ var styles = StyleSheet.create({
   },
 });
 
-module.exports = connect()(SessionsCarusel);
+const getAllSessions = createSelector(
+  (store) => store.sessions,
+  (store, props) => props.day,
+  (sessions, day) => groupSessions(filterSessions.byDay(sessions, day))
+);
+
+function select(store, props) {
+  return {
+    allSessions: getAllSessions(store, props),
+    session: store.sessions.find(s => s.id === props.session),
+  };
+}
+
+module.exports = connect(select)(SessionsCarusel);

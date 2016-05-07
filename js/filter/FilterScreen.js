@@ -40,6 +40,7 @@ const {
 const shallowEqual = require('fbjs/lib/shallowEqual');
 const {
   applyTopicsFilter,
+  back,
 } = require('../actions');
 const {connect} = require('react-redux');
 
@@ -49,8 +50,7 @@ class FilterScreen extends React.Component {
     topics: Array<string>;
     selectedTopics: {[id: string]: boolean};
     dispatch: (action: any) => void;
-    navigator: any;
-    onClose: ?() => void;
+    back: Function;
   };
   state: {
     selectedTopics: {[id: string]: boolean};
@@ -66,7 +66,6 @@ class FilterScreen extends React.Component {
 
     (this: any).applyFilter = this.applyFilter.bind(this);
     (this: any).clearFilter = this.clearFilter.bind(this);
-    (this: any).close = this.close.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -106,7 +105,7 @@ class FilterScreen extends React.Component {
 
     let leftItem, rightItem;
     if (this.props.navigator) {
-      leftItem = {title: 'Cancel', onPress: this.close};
+      leftItem = {title: 'Cancel', onPress: this.props.back};
     }
     if (selectedAnyTopics) {
       rightItem = {
@@ -152,17 +151,6 @@ class FilterScreen extends React.Component {
 
   applyFilter() {
     this.props.dispatch(applyTopicsFilter(this.state.selectedTopics));
-    this.close();
-  }
-
-  close() {
-    const {navigator, onClose} = this.props;
-    if (navigator) {
-      requestAnimationFrame(() => navigator.pop());
-    }
-    if (onClose) {
-      onClose();
-    }
   }
 
   clearFilter() {
@@ -200,4 +188,10 @@ function select(store) {
   };
 }
 
-module.exports = connect(select)(FilterScreen);
+function actions(dispatch) {
+  return {
+    back: () => dispatch(back()),
+  };
+}
+
+module.exports = connect(select, actions)(FilterScreen);

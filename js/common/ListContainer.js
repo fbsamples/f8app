@@ -38,6 +38,9 @@ var { Text } = require('F8Text');
 var ViewPager = require('./ViewPager');
 var Platform = require('Platform');
 
+var { openNavDrawer } = require('../actions');
+var { connect } = require('react-redux');
+
 import type {Item as HeaderItem} from 'F8Header';
 
 type Props = {
@@ -52,6 +55,7 @@ type Props = {
   parallaxContent: ?ReactElement;
   stickyHeader?: ?ReactElement;
   onSegmentChange?: (segment: number) => void;
+  openNavDrawer: Function;
   children: any;
 };
 
@@ -349,7 +353,7 @@ class ListContainer extends React.Component {
   }
 
   handleShowMenu() {
-    this.context.openDrawer();
+    this.props.openNavDrawer();
   }
 }
 
@@ -358,7 +362,6 @@ ListContainer.defaultProps = {
 };
 
 ListContainer.contextTypes = {
-  openDrawer: React.PropTypes.func,
   hasUnreadNotifications: React.PropTypes.number,
 };
 
@@ -404,4 +407,10 @@ var styles = StyleSheet.create({
   },
 });
 
-module.exports = ListContainer;
+function actions(dispatch) {
+  return {
+    openNavDrawer: () => dispatch(openNavDrawer()),
+  };
+}
+
+module.exports = connect(null, actions)(ListContainer);

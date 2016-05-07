@@ -25,10 +25,46 @@
 'use strict';
 
 import type { Action } from './types';
+import type { Session } from '../reducers/sessions';
 
 type Tab = 'schedule' | 'my-schedule' | 'map' | 'notifications' | 'info';
 
 module.exports = {
+  back: (): Action => ({
+    type: 'BACK',
+  }),
+
+  openFilter: (): Action => ({
+    type: 'OPEN_FILTER',
+  }),
+
+  openNavDrawer: (): Action => ({
+    type: 'OPEN_NAV_DRAWER',
+  }),
+
+  openFriend: (friend: string): Action => ({
+    type: 'OPEN_FRIEND',
+    friend,
+  }),
+
+  openSharingSettings: (): Action => ({
+    type: 'OPEN_SHARING_SETTINGS',
+  }),
+
+  openLoginModal: (): Action => ({
+    type: 'OPEN_LOGIN_MODAL',
+  }),
+
+  openShare: (): Action => ({
+    type: 'OPEN_SHARE',
+  }),
+
+  openSession: (session: string, day: 1 | 2): Action => ({
+    type: 'OPEN_SESSION',
+    day,
+    session,
+  }),
+
   switchTab: (tab: Tab): Action => ({
     type: 'SWITCH_TAB',
     tab,

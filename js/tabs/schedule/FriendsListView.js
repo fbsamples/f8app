@@ -24,18 +24,20 @@
 'use strict';
 
 var EmptySchedule = require('./EmptySchedule');
-var Navigator = require('Navigator');
 var React = require('React');
 var SessionsSectionHeader = require('./SessionsSectionHeader');
 var InviteFriendsButton = require('./InviteFriendsButton');
 var PureListView = require('../../common/PureListView');
 var FriendCell = require('./FriendCell');
 
+var { connect } = require('react-redux');
+var { openFriend } = require('../../actions');
+ 
 type Friend = any;
 
 type Props = {
+  openFriend: Function,
   friends: Array<Friend>;
-  navigator: Navigator;
 };
 
 class FriendsListView extends React.Component {
@@ -96,7 +98,7 @@ class FriendsListView extends React.Component {
   }
 
   openFriendsSchedule(friend: Friend) {
-    this.props.navigator.push({friend});
+    this.props.openFriend(friend.id);
   }
 
   storeInnerRef(ref: ?PureListView) {
@@ -112,4 +114,14 @@ class FriendsListView extends React.Component {
   }
 }
 
-module.exports = FriendsListView;
+function select(store) {
+  return {};
+}
+
+function actions(dispatch) {
+  return {
+    openFriend: (friend) => dispatch(openFriend(friend)),
+  };
+}
+
+module.exports = connect(select, actions)(FriendsListView);

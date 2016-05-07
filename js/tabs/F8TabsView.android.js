@@ -30,7 +30,6 @@ var F8Colors = require('F8Colors');
 var F8MapView = require('F8MapView');
 var F8NotificationsView = require('F8NotificationsView');
 var React = require('React');
-var Navigator = require('Navigator');
 var F8DrawerLayout = require('F8DrawerLayout');
 var View = require('View');
 var StyleSheet = require('StyleSheet');
@@ -44,16 +43,19 @@ var GeneralScheduleView = require('./schedule/GeneralScheduleView');
 var MyScheduleView = require('./schedule/MyScheduleView');
 var unseenNotificationsCount = require('./notifications/unseenNotificationsCount');
 
-var { switchTab, logOutWithPrompt } = require('../actions');
+var { back, openSharingSettings, openNavDrawer, switchTab, logOutWithPrompt } = require('../actions');
 var { connect } = require('react-redux');
 
 import type {Tab} from '../reducers/navigation';
 
 class F8TabsView extends React.Component {
   props: {
+    back: Function;
     tab: Tab;
+    openSharingSettings: Function;
+    openNavDrawer: Function,
     onTabSelect: (tab: Tab) => void;
-    navigator: Navigator;
+    isNavDrawerOpen: boolean;
   };
 
   constructor(props) {
@@ -61,30 +63,22 @@ class F8TabsView extends React.Component {
 
     this.renderNavigationView = this.renderNavigationView.bind(this);
     this.openProfileSettings = this.openProfileSettings.bind(this);
-    this.openDrawer = this.openDrawer.bind(this);
   }
 
   getChildContext() {
     return {
-      openDrawer: this.openDrawer,
       hasUnreadNotifications: this.props.notificationsBadge > 0,
     };
-  }
-
-  openDrawer() {
-    this.refs.drawer.openDrawer();
   }
 
   onTabSelect(tab: Tab) {
     if (this.props.tab !== tab) {
       this.props.onTabSelect(tab);
     }
-    this.refs.drawer.closeDrawer();
   }
 
   openProfileSettings() {
-    this.refs.drawer.closeDrawer();
-    this.props.navigator.push({shareSettings: true});
+    this.props.openSharingSettings();
   }
 
   renderNavigationView() {
@@ -181,15 +175,12 @@ class F8TabsView extends React.Component {
     switch (this.props.tab) {
       case 'schedule':
         return (
-          <GeneralScheduleView
-            navigator={this.props.navigator}
-          />
+          <GeneralScheduleView />
         );
 
       case 'my-schedule':
         return (
           <MyScheduleView
-            navigator={this.props.navigator}
             onJumpToSchedule={() => this.props.onTabSelect('schedule')}
           />
         );
@@ -198,10 +189,10 @@ class F8TabsView extends React.Component {
         return <F8MapView />;
 
       case 'notifications':
-        return <F8NotificationsView navigator={this.props.navigator} />;
+        return <F8NotificationsView />;
 
       case 'info':
-        return <F8InfoView navigator={this.props.navigator} />;
+        return <F8InfoView />;
     }
     throw new Error(`Unknown tab ${this.props.tab}`);
   }
@@ -212,6 +203,9 @@ class F8TabsView extends React.Component {
         ref="drawer"
         drawerWidth={290}
         drawerPosition="left"
+        isOpen={this.props.isNavDrawerOpen}
+        onDrawerOpen={this.props.openNavDrawer}
+        onDrawerClose={this.props.back}
         renderNavigationView={this.renderNavigationView}>
         <View style={styles.content} key={this.props.tab}>
           {this.renderContent()}
@@ -222,12 +216,12 @@ class F8TabsView extends React.Component {
 }
 
 F8TabsView.childContextTypes = {
-  openDrawer: React.PropTypes.func,
   hasUnreadNotifications: React.PropTypes.number,
 };
 
 function select(store) {
   return {
+    isNavDrawerOpen: store.navigation.isNavDrawerOpen,
     tab: store.navigation.tab,
     day: store.navigation.day,
     user: store.user,
@@ -239,6 +233,9 @@ function actions(dispatch) {
   return {
     onTabSelect: (tab) => dispatch(switchTab(tab)),
     logOut: () => dispatch(logOutWithPrompt()),
+    back: () => dispatch(back()),
+    openNavDrawer: () => dispatch(openNavDrawer()),
+    openSharingSettings: () => dispatch(openSharingSettings()),
   };
 }
 

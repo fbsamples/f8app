@@ -27,7 +27,6 @@ var EmptySchedule = require('./EmptySchedule');
 var FilterHeader = require('./FilterHeader');
 var FilterSessions = require('./filterSessions');
 var ListContainer = require('ListContainer');
-var Navigator = require('Navigator');
 var React = require('React');
 var Platform = require('Platform');
 var F8DrawerLayout = require('F8DrawerLayout');
@@ -35,7 +34,7 @@ var ScheduleListView = require('./ScheduleListView');
 var FilterScreen = require('../../filter/FilterScreen');
 
 var { connect } = require('react-redux');
-var {switchDay} = require('../../actions');
+var { back, openFilter, switchDay } = require('../../actions');
 
 import type {Session} from '../../reducers/sessions';
 
@@ -51,15 +50,16 @@ const data = createSelector(
 type Props = {
   filter: any;
   day: number;
+  isFilterDrawerOpen: boolean;
   sessions: Array<Session>;
-  navigator: Navigator;
   logOut: () => void;
+  back: () => void;
+  openFilter: () => void;
   switchDay: (day: number) => void;
 };
 
 class GeneralScheduleView extends React.Component {
   props: Props;
-  _drawer: ?F8DrawerLayout;
 
   constructor(props) {
     super(props);
@@ -96,14 +96,12 @@ class GeneralScheduleView extends React.Component {
           day={1}
           sessions={this.props.sessions}
           renderEmptyList={this.renderEmptyList}
-          navigator={this.props.navigator}
         />
         <ScheduleListView
           title="Day 2"
           day={2}
           sessions={this.props.sessions}
           renderEmptyList={this.renderEmptyList}
-          navigator={this.props.navigator}
         />
       </ListContainer>
     );
@@ -113,9 +111,11 @@ class GeneralScheduleView extends React.Component {
     }
     return (
       <F8DrawerLayout
-        ref={(drawer) => this._drawer = drawer}
         drawerWidth={300}
         drawerPosition="right"
+        isOpen={this.props.isFilterDrawerOpen}
+        onDrawerOpen={this.props.openFilter}
+        onDrawerClose={this.props.back}
         renderNavigationView={this.renderNavigationView}>
         {content}
       </F8DrawerLayout>
@@ -123,7 +123,7 @@ class GeneralScheduleView extends React.Component {
   }
 
   renderNavigationView() {
-    return <FilterScreen onClose={() => this._drawer && this._drawer.closeDrawer()} />;
+    return <FilterScreen onClose={this.props.back} />;
   }
 
   renderEmptyList(day: number) {
@@ -136,11 +136,7 @@ class GeneralScheduleView extends React.Component {
   }
 
   openFilterScreen() {
-    if (Platform.OS === 'ios') {
-      this.props.navigator.push({ filter: 123 });
-    } else {
-      this._drawer && this._drawer.openDrawer();
-    }
+    this.props.openFilter();
   }
 
   switchDay(page) {
@@ -150,6 +146,7 @@ class GeneralScheduleView extends React.Component {
 
 function select(store) {
   return {
+    isFilterDrawerOpen: store.navigation.isFilterDrawerOpen,
     day: store.navigation.day,
     filter: store.filter,
     sessions: data(store),
@@ -158,6 +155,8 @@ function select(store) {
 
 function actions(dispatch) {
   return {
+    back: () => dispatch(back()),
+    openFilter: () => dispatch(openFilter()),
     switchDay: (day) => dispatch(switchDay(day)),
   };
 }

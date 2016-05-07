@@ -35,7 +35,6 @@ var MyScheduleView = require('./schedule/MyScheduleView');
 var React = require('React');
 var TabBarIOS = require('TabBarIOS');
 var TabBarItemIOS = require('TabBarItemIOS');
-var Navigator = require('Navigator');
 var unseenNotificationsCount = require('./notifications/unseenNotificationsCount');
 
 var { switchTab } = require('../actions');
@@ -48,7 +47,6 @@ class F8TabsView extends React.Component {
     tab: Tab;
     day: Day;
     onTabSelect: (tab: Tab) => void;
-    navigator: Navigator;
   };
 
   constructor(props) {
@@ -82,7 +80,6 @@ class F8TabsView extends React.Component {
           icon={scheduleIcon}
           selectedIcon={scheduleIconSelected}>
           <GeneralScheduleView
-            navigator={this.props.navigator}
             onDayChange={this.handleDayChange}
           />
         </TabBarItemIOS>
@@ -93,7 +90,6 @@ class F8TabsView extends React.Component {
           icon={require('./schedule/img/my-schedule-icon.png')}
           selectedIcon={require('./schedule/img/my-schedule-icon-active.png')}>
           <MyScheduleView
-            navigator={this.props.navigator}
             onJumpToSchedule={() => this.props.onTabSelect('schedule')}
           />
         </TabBarItemIOS>
@@ -112,7 +108,7 @@ class F8TabsView extends React.Component {
           badge={this.props.notificationsBadge || null}
           icon={require('./notifications/img/notifications-icon.png')}
           selectedIcon={require('./notifications/img/notifications-icon-active.png')}>
-          <F8NotificationsView navigator={this.props.navigator} />
+          <F8NotificationsView />
         </TabBarItemIOS>
         <TabBarItemIOS
           title="Info"
@@ -120,7 +116,7 @@ class F8TabsView extends React.Component {
           onPress={this.onTabSelect.bind(this, 'info')}
           icon={require('./info/img/info-icon.png')}
           selectedIcon={require('./info/img/info-icon-active.png')}>
-          <F8InfoView navigator={this.props.navigator} />
+          <F8InfoView />
         </TabBarItemIOS>
       </TabBarIOS>
     );
