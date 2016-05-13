@@ -286,7 +286,7 @@ class ListContainer extends React.Component {
     // If native pinning is not available, fallback to Animated
     if (!NativeModules.F8Scrolling) {
       var distance = EMPTY_CELL_HEIGHT - this.state.stickyHeaderHeight;
-      var translateY = 0; this.state.anim.interpolate({
+      var translateY = this.state.anim.interpolate({
         inputRange: [0, distance],
         outputRange: [distance, 0],
         extrapolateRight: 'clamp',
