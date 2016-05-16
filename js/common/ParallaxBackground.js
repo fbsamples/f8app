@@ -132,7 +132,7 @@ class ParallaxBackground extends React.Component {
     const {minHeight, maxHeight, offset} = this.props;
     const length = maxHeight - minHeight;
     const opacity = offset.interpolate({
-      inputRange: [0, length - 40],
+      inputRange: [0, length],
       outputRange: [1, 0],
       extrapolate: 'clamp',
     });

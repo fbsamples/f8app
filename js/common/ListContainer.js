@@ -80,7 +80,8 @@ class RelayLoading extends React.Component {
   render() {
     const child = React.Children.only(this.props.children);
     if (!child.type.getFragmentNames) {
-      return child;
+      var {minContentHeight} = this.props;
+      return React.cloneElement(child, {minContentHeight});
     }
     return (
       <RelayRenderer
@@ -180,7 +181,7 @@ class ListContainer extends React.Component {
         <View style={styles.headerWrapper}>
           <ParallaxBackground
             minHeight={this.state.stickyHeaderHeight + F8Header.height}
-            maxHeight={EMPTY_CELL_HEIGHT + this.state.stickyHeaderHeight + F8Header.height}
+            maxHeight={EMPTY_CELL_HEIGHT + F8Header.height}
             offset={this.state.anim}
             backgroundImage={this.props.backgroundImage}
             backgroundShift={backgroundShift}
@@ -199,7 +200,8 @@ class ListContainer extends React.Component {
         <ViewPager
           count={segments.length}
           selectedIndex={this.state.idx}
-          onSelectedIndexChange={this.handleSelectSegment}>
+          onSelectedIndexChange={this.handleSelectSegment}
+          fakeHeaderHeight={EMPTY_CELL_HEIGHT - this.state.stickyHeaderHeight}>
           {content}
         </ViewPager>
         {this.renderFloatingStickyHeader(stickyHeader)}
@@ -286,7 +288,7 @@ class ListContainer extends React.Component {
     // If native pinning is not available, fallback to Animated
     if (!NativeModules.F8Scrolling) {
       var distance = EMPTY_CELL_HEIGHT - this.state.stickyHeaderHeight;
-      var translateY = 0; this.state.anim.interpolate({
+      var translateY = this.state.anim.interpolate({
         inputRange: [0, distance],
         outputRange: [distance, 0],
         extrapolateRight: 'clamp',
