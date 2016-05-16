@@ -137,10 +137,13 @@ class ViewPager extends React.Component {
 
   renderContent(): Array<ReactElement> {
     var {width, height} = this.state;
+    var {fakeHeaderHeight} = this.props;
     var style = Platform.OS === 'ios' && styles.card;
     return React.Children.map(this.props.children, (child, i) => (
       <View style={[style, {width, height}]} key={'r_' + i}>
-        {child}
+        {React.cloneElement(child, {
+          minContentHeight: fakeHeaderHeight + height - 49,
+        })}
       </View>
     ));
   }
