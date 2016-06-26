@@ -80,6 +80,8 @@ class PureListView extends React.Component {
       dataSource: cloneWithData(dataSource, props.data),
     };
 
+    // Add renderRow for 'Failed propType: Required prop'
+    (this: any).renderRow = props.renderRow || this.renderRow;
     (this: any).renderFooter = this.renderFooter.bind(this);
     (this: any).onContentSizeChange = this.onContentSizeChange.bind(this);
   }
@@ -90,6 +92,10 @@ class PureListView extends React.Component {
         dataSource: cloneWithData(this.state.dataSource, nextProps.data),
       });
     }
+  }
+
+  renderRow(){
+      return null;
   }
 
   render() {
@@ -103,6 +109,8 @@ class PureListView extends React.Component {
         {...this.props}
         ref="listview"
         dataSource={this.state.dataSource}
+        enableEmptySections={true}
+        renderRow={this.renderRow}
         renderFooter={this.renderFooter}
         contentInset={{bottom, top: contentInset.top}}
         onContentSizeChange={this.onContentSizeChange}
