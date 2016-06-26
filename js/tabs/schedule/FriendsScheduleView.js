@@ -49,7 +49,7 @@ class FriendsScheduleView extends React.Component {
 
   constructor(props) {
     super(props);
-    this.renderEmptyList = this.renderEmptyList.bind(this);
+    (this: any).renderEmptyList = this.renderEmptyList.bind(this);
   }
 
   render() {

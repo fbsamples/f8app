@@ -38,7 +38,7 @@ class LinksList extends React.Component {
   props: {
     title: string;
     links: Array<{
-      logo: ?string;
+      logo?: ?string;
       title: string;
       url?: string;
       onPress?: () => void;

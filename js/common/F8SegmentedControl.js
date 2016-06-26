@@ -37,7 +37,7 @@ class F8SegmentedControl extends React.Component {
     selectionColor: ?string;
     selectedIndex: number;
     onChange: (newIndex: number) => void;
-    style: any;
+    style?: any;
   };
 
   render() {

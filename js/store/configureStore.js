@@ -24,14 +24,14 @@
 
 'use strict';
 
-var {applyMiddleware, createStore} = require('redux');
-var thunk = require('redux-thunk');
+import {applyMiddleware, createStore} from 'redux';
+import thunk from 'redux-thunk';
 var promise = require('./promise');
 var array = require('./array');
 var analytics = require('./analytics');
 var reducers = require('../reducers');
 var createLogger = require('redux-logger');
-var {persistStore, autoRehydrate} = require('redux-persist');
+import {persistStore, autoRehydrate} from 'redux-persist';
 var {AsyncStorage} = require('react-native');
 
 var isDebuggingInChrome = __DEV__ && !!window.navigator.userAgent;

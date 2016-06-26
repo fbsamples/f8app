@@ -25,7 +25,7 @@
 
 const Parse = require('parse/react-native');
 const {AppEventsLogger} = require('react-native-fbsdk');
-const React = require('react-native');
+const React = require('react');
 const F8SessionDetails = require('F8SessionDetails');
 const F8PageControl = require('F8PageControl');
 const F8Header = require('F8Header');
@@ -43,7 +43,7 @@ const {
   Text,
   View,
   Navigator,
-} = React;
+} = require('react-native');
 
 import type {Session} from '../../reducers/sessions';
 

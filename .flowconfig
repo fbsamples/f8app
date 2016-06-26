@@ -4,6 +4,9 @@
 .*/*.web.js
 .*/*.android.js
 
+# Ignore templates with `@flow` in header
+.*/local-cli/generator.*
+
 # Some modules have their own node_modules with overlap
 .*/node_modules/node-haste/.*
 
@@ -88,4 +91,4 @@ suppress_comment=\\(.\\|\n\\)*\\$FlowIssue\\((\\(>=0\\.\\(2[0-0]\\|1[0-9]\\|[0-9
 suppress_comment=\\(.\\|\n\\)*\\$FlowFixedInNextDeploy
 
 [version]
-0.22.0
+^0.25.0

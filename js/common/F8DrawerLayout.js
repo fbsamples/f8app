@@ -34,11 +34,11 @@ class F8DrawerLayout extends React.Component {
   constructor(props: any, context: any) {
     super(props, context);
 
-    this.openDrawer = this.openDrawer.bind(this);
-    this.closeDrawer = this.closeDrawer.bind(this);
-    this.onDrawerOpen = this.onDrawerOpen.bind(this);
-    this.onDrawerClose = this.onDrawerClose.bind(this);
-    this.handleBackButton = this.handleBackButton.bind(this);
+    (this: any).openDrawer = this.openDrawer.bind(this);
+    (this: any).closeDrawer = this.closeDrawer.bind(this);
+    (this: any).onDrawerOpen = this.onDrawerOpen.bind(this);
+    (this: any).onDrawerClose = this.onDrawerClose.bind(this);
+    (this: any).handleBackButton = this.handleBackButton.bind(this);
   }
 
   render() {
@@ -46,7 +46,7 @@ class F8DrawerLayout extends React.Component {
     const {Right, Left} = DrawerLayoutAndroid.positions;
     return (
       <DrawerLayoutAndroid
-        ref={(drawer) => this._drawer = drawer}
+        ref={(drawer) => { this._drawer = drawer; }}
         {...props}
         drawerPosition={drawerPosition === 'right' ? Right : Left}
         onDrawerOpen={this.onDrawerOpen}

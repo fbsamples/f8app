@@ -23,14 +23,14 @@
  */
 'use strict';
 
-const React = require('react-native');
+const React = require('react');
 const F8Colors = require('F8Colors');
 const {
   Image,
   Text,
   View,
   StyleSheet,
-} = React;
+} = require('react-native');
 
 import type {Session} from '../reducers/sessions';
 
@@ -102,11 +102,35 @@ var styles = StyleSheet.create({
 module.exports = Header;
 module.exports.__cards__ = (define) => {
   const MOCK_SESSION = {
+    id: 'mock1',
     title: 'Building For the Next Billion',
     speakers: [
-      { id: 1, pic: 'https://graph.facebook.com/100001244322535/picture?width=60&height=60' },
-      { id: 2, pic: 'https://graph.facebook.com/10152531777042364/picture?width=60&height=60' },
+      {
+        id: '1',
+        bio: '',
+        name: 'Foo',
+        title: '',
+        pic: 'https://graph.facebook.com/100001244322535/picture?width=60&height=60',
+      },
+      {
+        id: '2',
+        bio: '',
+        name: 'Bar',
+        title: '',
+        pic: 'https://graph.facebook.com/10152531777042364/picture?width=60&height=60',
+      },
     ],
+    day: 1,
+    allDay: false,
+    description: '...',
+    startTime: 0,
+    endTime: 0,
+    hasDetails: true,
+    location: 'space',
+    map: 'space',
+    onMySchedule: false,
+    slug: 'next-billion',
+    tags: [],
   };
 
   define('Example', (state = null, update) => (
@@ -115,6 +139,7 @@ module.exports.__cards__ = (define) => {
 
   define('Long title', () => (
     <Header session={{
+      ...MOCK_SESSION,
       title: 'Inside Facebook\'s Infrastructure (Part 1): The System that Serves Billions',
       speakers: [],
     }} />

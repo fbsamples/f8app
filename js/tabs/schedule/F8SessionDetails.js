@@ -30,7 +30,7 @@ var F8Colors = require('F8Colors');
 var F8FriendGoing = require('F8FriendGoing');
 var F8SpeakerProfile = require('F8SpeakerProfile');
 var Image = require('Image');
-var LinearGradient = require('react-native-linear-gradient');
+import LinearGradient from 'react-native-linear-gradient';
 var MapView = require('../../common/MapView');
 var PixelRatio = require('PixelRatio');
 var React = require('React');
@@ -140,7 +140,7 @@ var F8SessionDetails = React.createClass({
         </ScrollView>
         <View style={styles.actions}>
           <AddToScheduleButton
-            addedImageSource={isReactTalk && require('./img/added-react.png')}
+            addedImageSource={isReactTalk ? require('./img/added-react.png') : null}
             isAdded={this.props.isAddedToSchedule}
             onPress={this.toggleAdded}
           />
@@ -189,8 +189,8 @@ var F8SessionDetails = React.createClass({
 
 class Section extends React.Component {
   props: {
-    title: string;
-    children: any;
+    title?: string;
+    children?: any;
   };
 
   render() {

@@ -51,11 +51,6 @@ class F8TabsView extends React.Component {
     navigator: Navigator;
   };
 
-  constructor(props) {
-    super(props);
-    this.handleDayChange = this.handleDayChange.bind(this);
-  }
-
   componentDidMount() {
     StatusBarIOS && StatusBarIOS.setStyle('light-content');
   }
@@ -83,7 +78,6 @@ class F8TabsView extends React.Component {
           selectedIcon={scheduleIconSelected}>
           <GeneralScheduleView
             navigator={this.props.navigator}
-            onDayChange={this.handleDayChange}
           />
         </TabBarItemIOS>
         <TabBarItemIOS
@@ -124,10 +118,6 @@ class F8TabsView extends React.Component {
         </TabBarItemIOS>
       </TabBarIOS>
     );
-  }
-
-  handleDayChange(day) {
-    this.setState({selectedDay: day});
   }
 
 }

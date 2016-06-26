@@ -31,8 +31,8 @@ var View = require('View');
 class Section extends React.Component {
   props: {
     title: string;
-    children: any;
-    style: any;
+    children?: any;
+    style?: any;
   };
 
   render() {

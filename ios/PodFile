@@ -12,9 +12,11 @@ target 'F8v2' do
     'RCTLinkingIOS',
     'RCTVibration',
   ], :path => '../node_modules/react-native'
-  pod 'react-native-fbsdkcore', :path => '../node_modules/react-native-fbsdk/iOS/core'
-  pod 'react-native-fbsdklogin', :path => '../node_modules/react-native-fbsdk/iOS/login'
-  pod 'react-native-fbsdkshare', :path => '../node_modules/react-native-fbsdk/iOS/share'
+  pod 'react-native-fbsdk', :subspecs => [
+    'Core',
+    'Login',
+    'Share',
+  ], :path => '../node_modules/react-native-fbsdk/iOS'
   pod 'CodePush', :path => '../node_modules/react-native-code-push'
 end
 

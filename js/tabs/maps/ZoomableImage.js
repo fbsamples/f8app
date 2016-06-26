@@ -33,6 +33,10 @@ class ZoomableImage extends React.Component {
   props: {
     url: string;
   };
+  state: {
+    lastTapTimestamp: number;
+    isZoomed: boolean;
+  };
 
   constructor() {
     super();
@@ -41,8 +45,8 @@ class ZoomableImage extends React.Component {
       isZoomed: false,
     };
 
-    this.onZoomChanged = this.onZoomChanged.bind(this);
-    this.toggleZoom = this.toggleZoom.bind(this);
+    (this: any).onZoomChanged = this.onZoomChanged.bind(this);
+    (this: any).toggleZoom = this.toggleZoom.bind(this);
   }
 
   render() {

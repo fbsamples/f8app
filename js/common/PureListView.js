@@ -39,10 +39,15 @@ export type Data = Rows | RowsAndSections;
 type RenderElement = () => ?ReactElement;
 
 type Props = {
-  data: ?Data;
+  data: Data;
   renderEmptyList?: ?RenderElement;
   minContentHeight: number;
   contentInset: { top: number; bottom: number; };
+};
+
+type State = {
+  contentHeight: number;
+  dataSource: ListView.DataSource;
 };
 
 // FIXME: Android has a bug when scrolling ListView the view insertions
@@ -51,6 +56,15 @@ const LIST_VIEW_PAGE_SIZE = Platform.OS === 'android' ? 20 : 1;
 
 class PureListView extends React.Component {
   props: Props;
+  state: State;
+
+  static defaultProps = {
+    data: [],
+    contentInset: { top: 0, bottom: 0 },
+    // TODO: This has to be scrollview height + fake header
+    minContentHeight: Dimensions.get('window').height + 20,
+    renderSeparator: (sectionID, rowID) => <View style={styles.separator} key={rowID} />,
+  };
 
   constructor(props: Props) {
     super(props);
@@ -66,8 +80,8 @@ class PureListView extends React.Component {
       dataSource: cloneWithData(dataSource, props.data),
     };
 
-    this.renderFooter = this.renderFooter.bind(this);
-    this.onContentSizeChange = this.onContentSizeChange.bind(this);
+    (this: any).renderFooter = this.renderFooter.bind(this);
+    (this: any).onContentSizeChange = this.onContentSizeChange.bind(this);
   }
 
   componentWillReceiveProps(nextProps: Props) {
@@ -118,14 +132,6 @@ class PureListView extends React.Component {
     return this.props.renderFooter && this.props.renderFooter();
   }
 }
-
-PureListView.defaultProps = {
-  data: [],
-  contentInset: { top: 0, bottom: 0 },
-  // TODO: This has to be scrollview height + fake header
-  minContentHeight: Dimensions.get('window').height + 20,
-  renderSeparator: (sectionID, rowID) => <View style={styles.separator} key={rowID} />,
-};
 
 function cloneWithData(dataSource: ListView.DataSource, data: ?Data) {
   if (!data) {

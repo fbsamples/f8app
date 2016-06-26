@@ -23,7 +23,7 @@
  */
 'use strict';
 
-const React = require('react-native');
+const React = require('react');
 const F8Colors = require('F8Colors');
 const {
   Text,
@@ -31,7 +31,7 @@ const {
   View,
   StyleSheet,
   TouchableOpacity,
-} = React;
+} = require('react-native');
 
 export type Question = {
   text: string;
@@ -43,7 +43,7 @@ type Props = {
   question: Question;
   rating: ?number;
   onChange: (newRating: number) => void;
-  style: any;
+  style?: any;
 };
 
 function RatingQuestion({question, rating, onChange, style}: Props) {

@@ -23,8 +23,8 @@
  */
 'use strict';
 
-const React = require('react-native');
-const {StyleSheet} = React;
+const React = require('react');
+const {StyleSheet} = require('react-native');
 const F8Button = require('F8Button');
 
 const { logInWithFacebook } = require('../actions');
@@ -61,6 +61,7 @@ class LoginButton extends React.Component {
         <F8Button
           style={[styles.button, this.props.style]}
           caption="Please wait..."
+          onPress={() => {}}
         />
       );
     }

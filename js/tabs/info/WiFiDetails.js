@@ -40,13 +40,15 @@ type Props = {
   password: string;
 };
 
+type State = {
+  copied: boolean;
+};
+
 class WiFiDetails extends React.Component {
   props: Props;
-
-  constructor(props: Props) {
-    super(props);
-    this.state = { copied: false };
-  }
+  state: State = {
+    copied: false,
+  };
 
   render() {
     const caption = this.state.copied

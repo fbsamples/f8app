@@ -70,7 +70,7 @@ function InfoList({viewer: {config, faqs, pages}, ...props}) {
           <LinksList title="Facebook policies" links={POLICIES_LINKS} />
         </View>
       )}
-      {...props}
+      {...(props: any /* flow can't guarantee the shape of props */)}
     />
   );
 }

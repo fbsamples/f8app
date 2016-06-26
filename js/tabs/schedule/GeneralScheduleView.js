@@ -64,10 +64,10 @@ class GeneralScheduleView extends React.Component {
   constructor(props) {
     super(props);
 
-    this.renderEmptyList = this.renderEmptyList.bind(this);
-    this.switchDay = this.switchDay.bind(this);
-    this.openFilterScreen = this.openFilterScreen.bind(this);
-    this.renderNavigationView = this.renderNavigationView.bind(this);
+    (this: any).renderEmptyList = this.renderEmptyList.bind(this);
+    (this: any).switchDay = this.switchDay.bind(this);
+    (this: any).openFilterScreen = this.openFilterScreen.bind(this);
+    (this: any).renderNavigationView = this.renderNavigationView.bind(this);
   }
 
   render() {
@@ -113,7 +113,7 @@ class GeneralScheduleView extends React.Component {
     }
     return (
       <F8DrawerLayout
-        ref={(drawer) => this._drawer = drawer}
+        ref={(drawer) => { this._drawer = drawer; }}
         drawerWidth={300}
         drawerPosition="right"
         renderNavigationView={this.renderNavigationView}>

@@ -65,10 +65,10 @@ class F8NotificationsView extends React.Component {
   constructor(props) {
     super(props);
 
-    this.renderRow = this.renderRow.bind(this);
-    this.renderEmptyList = this.renderEmptyList.bind(this);
-    this.openNotification = this.openNotification.bind(this);
-    this.openReview = this.openReview.bind(this);
+    (this: any).renderRow = this.renderRow.bind(this);
+    (this: any).renderEmptyList = this.renderEmptyList.bind(this);
+    (this: any).openNotification = this.openNotification.bind(this);
+    (this: any).openReview = this.openReview.bind(this);
   }
 
   render() {

@@ -30,9 +30,9 @@ var View = require('View');
 
 class ItemsWithSeparator extends React.Component {
   props: {
-    style: any;
-    separatorStyle: any;
-    children: any;
+    style?: any;
+    separatorStyle?: any;
+    children?: any;
   };
 
   render() {

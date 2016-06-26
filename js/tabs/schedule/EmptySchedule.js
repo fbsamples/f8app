@@ -31,11 +31,11 @@ var View = require('View');
 
 class EmptySchedule extends React.Component {
   props: {
-    style: any;
-    title: string;
-    image: number;
+    style?: any;
+    title?: string;
+    image?: number;
     text: string;
-    children: any;
+    children?: any;
   };
 
   render() {

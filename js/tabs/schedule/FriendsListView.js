@@ -47,11 +47,11 @@ class FriendsListView extends React.Component {
 
     this._innerRef = null;
 
-    this.renderSectionHeader = this.renderSectionHeader.bind(this);
-    this.renderRow = this.renderRow.bind(this);
-    this.renderFooter = this.renderFooter.bind(this);
-    this.renderEmptyList = this.renderEmptyList.bind(this);
-    this.storeInnerRef = this.storeInnerRef.bind(this);
+    (this: any).renderSectionHeader = this.renderSectionHeader.bind(this);
+    (this: any).renderRow = this.renderRow.bind(this);
+    (this: any).renderFooter = this.renderFooter.bind(this);
+    (this: any).renderEmptyList = this.renderEmptyList.bind(this);
+    (this: any).storeInnerRef = this.storeInnerRef.bind(this);
   }
 
   render() {
@@ -63,7 +63,7 @@ class FriendsListView extends React.Component {
         renderSectionHeader={this.renderSectionHeader}
         renderEmptyList={this.renderEmptyList}
         renderFooter={this.renderFooter}
-        {...this.props}
+        {...(this.props: any /* flow can't guarantee the shape of props */)}
       />
     );
   }
