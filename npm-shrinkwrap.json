@@ -4841,9 +4841,9 @@
       "resolved": "https://registry.npmjs.org/react-native-linear-gradient/-/react-native-linear-gradient-1.5.12.tgz"
     },
     "react-native-push-notification": {
-      "version": "1.1.1",
-      "from": "react-native-push-notification@1.1.1",
-      "resolved": "https://registry.npmjs.org/react-native-push-notification/-/react-native-push-notification-1.1.1.tgz"
+      "version": "1.0.2",
+      "from": "frantic/react-native-push-notification#7142da7",
+      "resolved": "git://github.com/frantic/react-native-push-notification.git#7142da7ab83f010b6847caf36526044c27a68391"
     },
     "react-native-send-intent": {
       "version": "1.0.11",

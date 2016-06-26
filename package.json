@@ -27,7 +27,7 @@
     "react-native-code-push": "~1.12.2-beta",
     "react-native-fbsdk": "^0.2.1",
     "react-native-linear-gradient": "~1.5.0",
-    "react-native-push-notification": "~1.1.1",
+    "react-native-push-notification": "frantic/react-native-push-notification#7142da7",
     "react-native-send-intent": "~1.0.7",
     "react-native-share": "frantic/react-native-share#674df947b3",
     "react-redux": "~4.4.5",

@@ -67,7 +67,7 @@ class F8TabsView extends React.Component {
   getChildContext() {
     return {
       openDrawer: this.openDrawer,
-      hasUnreadNotifications: this.props.notificationsBadge || 0,
+      hasUnreadNotifications: this.props.notificationsBadge > 0,
     };
   }
 
