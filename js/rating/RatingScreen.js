@@ -105,9 +105,7 @@ class RatingScreen extends React.Component {
     const survey = this.props.surveys[index];
     const session = this.props.sessions.find((s) => s.id === survey.sessionId);
     return (
-      // Add key props for 'react-warning-keys'
       <RatingCard
-        key={index}
         style={styles.card}
         session={session}
         questions={survey.questions}

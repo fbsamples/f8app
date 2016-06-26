@@ -112,27 +112,21 @@ class MyScheduleView extends React.Component {
       );
     }
 
-    // Add key props for 'react-warning-keys'
     return [
       <ScheduleListView
         title="Day 1"
-        day={1}
-        key="day1"
         sessions={this.props.sessions}
         renderEmptyList={this.renderEmptySessionsList}
         navigator={this.props.navigator}
       />,
       <ScheduleListView
         title="Day 2"
-        day={2}
-        key="day2"
         sessions={this.props.sessions}
         renderEmptyList={this.renderEmptySessionsList}
         navigator={this.props.navigator}
       />,
       <FriendsListView
         title="Friends"
-        key="friends"
         friends={this.props.friends}
         navigator={this.props.navigator}
       />,

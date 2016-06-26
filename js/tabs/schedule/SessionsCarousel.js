@@ -163,9 +163,7 @@ class SessionsCarusel extends React.Component {
 
   renderCard(index: number): ReactElement {
     return (
-      // Add key props for 'react-warning-keys'
       <F8SessionDetails
-        key={'c_' + index}
         style={styles.card}
         navigator={this.props.navigator}
         session={this.state.flatSessionsList[index]}
