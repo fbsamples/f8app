@@ -11,12 +11,8 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
 
-    <!-- Coming from React Native -->
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" tools:node="remove" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" tools:node="remove" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" tools:node="remove" />
-
     <application
+      android:name=".MainApplication"
       android:allowBackup="true"
       android:label="@string/app_name"
       android:icon="@mipmap/ic_launcher"
@@ -31,6 +27,7 @@
         </intent-filter>
       </receiver>
 
+      <receiver android:name="com.dieam.reactnativepushnotification.modules.RNPushNotificationPublisher" />
       <service android:name="com.dieam.reactnativepushnotification.modules.RNPushNotificationRegistrationService" />
       <service
           android:name="com.dieam.reactnativepushnotification.modules.RNPushNotificationListenerService"

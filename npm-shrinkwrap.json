@@ -4769,9 +4769,9 @@
       "resolved": "https://registry.npmjs.org/rc/-/rc-1.1.6.tgz"
     },
     "react": {
-      "version": "15.1.0",
-      "from": "react@>=15.1.0 <15.2.0",
-      "resolved": "https://registry.npmjs.org/react/-/react-15.1.0.tgz"
+      "version": "15.2.0",
+      "from": "react@>=15.2.0 <15.3.0",
+      "resolved": "https://registry.npmjs.org/react/-/react-15.2.0.tgz"
     },
     "react-clone-referenced-element": {
       "version": "1.0.1",
@@ -4784,9 +4784,9 @@
       "resolved": "https://registry.npmjs.org/react-deep-force-update/-/react-deep-force-update-1.0.1.tgz"
     },
     "react-native": {
-      "version": "0.28.0",
-      "from": "react-native@0.28.0",
-      "resolved": "https://registry.npmjs.org/react-native/-/react-native-0.28.0.tgz",
+      "version": "0.29.0",
+      "from": "react-native@0.29.0",
+      "resolved": "https://registry.npmjs.org/react-native/-/react-native-0.29.0.tgz",
       "dependencies": {
         "asap": {
           "version": "2.0.4",
@@ -4831,9 +4831,9 @@
       "resolved": "https://registry.npmjs.org/react-native-code-push/-/react-native-code-push-1.12.2-beta.tgz"
     },
     "react-native-fbsdk": {
-      "version": "0.2.1",
-      "from": "react-native-fbsdk@0.2.1",
-      "resolved": "https://registry.npmjs.org/react-native-fbsdk/-/react-native-fbsdk-0.2.1.tgz"
+      "version": "0.2.2",
+      "from": "react-native-fbsdk@0.2.2",
+      "resolved": "https://registry.npmjs.org/react-native-fbsdk/-/react-native-fbsdk-0.2.2.tgz"
     },
     "react-native-linear-gradient": {
       "version": "1.5.12",
@@ -4841,9 +4841,9 @@
       "resolved": "https://registry.npmjs.org/react-native-linear-gradient/-/react-native-linear-gradient-1.5.12.tgz"
     },
     "react-native-push-notification": {
-      "version": "1.1.1",
-      "from": "react-native-push-notification@1.1.1",
-      "resolved": "https://registry.npmjs.org/react-native-push-notification/-/react-native-push-notification-1.1.1.tgz"
+      "version": "2.0.0",
+      "from": "react-native-push-notification-2.0.0",
+      "resolved": "https://registry.npmjs.org/react-native-push-notification/-/react-native-push-notification-2.0.0.tgz"
     },
     "react-native-send-intent": {
       "version": "1.0.11",
