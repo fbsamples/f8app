@@ -25,6 +25,7 @@ package com.facebook.f8;
 import com.facebook.CallbackManager;
 import com.facebook.appevents.AppEventsLogger;
 import com.facebook.react.ReactActivity;
+import android.content.Intent;
 
 public class MainActivity extends ReactActivity {
     private CallbackManager mCallbackManager;
