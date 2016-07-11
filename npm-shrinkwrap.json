@@ -4826,9 +4826,9 @@
       }
     },
     "react-native-code-push": {
-      "version": "1.12.2-beta",
-      "from": "react-native-code-push@>=1.12.2-beta <1.13.0",
-      "resolved": "https://registry.npmjs.org/react-native-code-push/-/react-native-code-push-1.12.2-beta.tgz"
+      "version": "1.13.2-beta",
+      "from": "react-native-code-push@>=1.13.2-beta <1.14.0",
+      "resolved": "https://registry.npmjs.org/react-native-code-push/-/react-native-code-push-1.13.2-beta.tgz"
     },
     "react-native-fbsdk": {
       "version": "0.2.2",
