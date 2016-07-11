@@ -35,6 +35,8 @@ var { Text } = require('F8Text');
 var LoginButton = require('../common/LoginButton');
 var TouchableOpacity = require('TouchableOpacity');
 
+var Platform = require('Platform');
+
 var { skipLogin } = require('../actions');
 var { connect } = require('react-redux');
 
@@ -44,7 +46,7 @@ class LoginScreen extends React.Component {
   };
 
   componentDidMount() {
-    StatusBar && StatusBar.setBarStyle('default');
+    Platform.OS === 'ios' && StatusBar && (StatusBar.setBarStyle('light-content'));
     Animated.timing(this.state.anim, {toValue: 3000, duration: 3000}).start();
   }
 

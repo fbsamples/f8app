@@ -22,19 +22,14 @@
 
 package com.facebook.f8;
 
-import android.app.Activity;
 import android.app.Application;
-import android.content.ComponentCallbacks;
 import android.content.Intent;
-import android.os.Bundle;
-import android.util.Log;
 
 import com.BV.LinearGradient.LinearGradientPackage;
 import com.burnweb.rnsendintent.RNSendIntentPackage;
 import com.dieam.reactnativepushnotification.ReactNativePushNotificationPackage;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookSdk;
-import com.facebook.appevents.AppEventsLogger;
 import com.facebook.react.ReactApplication;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
@@ -55,44 +50,8 @@ public class MainApplication extends Application implements ReactApplication {
     @Override
     public void onCreate() {
         super.onCreate();
-        registerActivityLifecycleCallbacks(mActivityLifecycleCallbacks);
-
+        FacebookSdk.sdkInitialize(getApplicationContext());
     }
-
-    ActivityLifecycleCallbacks mActivityLifecycleCallbacks =
-    new ActivityLifecycleCallbacks() {
-        @Override
-        public void onActivityCreated(Activity activity, Bundle savedInstanceState){
-            FacebookSdk.sdkInitialize(getApplicationContext());
-        }
-
-        @Override
-        public void onActivityStarted(Activity activity) {
-        }
-
-        @Override
-        public void onActivityResumed(Activity activity) {
-            AppEventsLogger.activateApp(getApplicationContext());
-        }
-
-        @Override
-        public void onActivityPaused(Activity activity) {
-            AppEventsLogger.deactivateApp(getApplicationContext());
-        }
-
-        @Override
-        public void onActivityStopped(Activity activity) {
-            AppEventsLogger.onContextStop();
-        }
-
-        @Override
-        public void onActivitySaveInstanceState(Activity activity, Bundle outState) {
-        }
-
-        @Override
-        public void onActivityDestroyed(Activity activity) {
-        }
-    };
 
     private final ReactNativeHost mReactNativeHost = new ReactNativeHost(this) {
         

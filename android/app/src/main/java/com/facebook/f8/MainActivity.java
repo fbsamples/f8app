@@ -23,15 +23,42 @@
 package com.facebook.f8;
 
 import com.facebook.CallbackManager;
+import com.facebook.appevents.AppEventsLogger;
 import com.facebook.react.ReactActivity;
 
 public class MainActivity extends ReactActivity {
-        /**
+    private CallbackManager mCallbackManager;
+
+    /**
      * Returns the name of the main component registered from JavaScript.
      * This is used to schedule rendering of the component.
      */
     @Override
     protected String getMainComponentName() {
         return "F8v2";
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        mCallbackManager.onActivityResult(requestCode, resultCode, data);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        AppEventsLogger.activateApp(getApplicationContext());
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        AppEventsLogger.deactivateApp(getApplicationContext());
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        AppEventsLogger.onContextStop();
     }
 }
