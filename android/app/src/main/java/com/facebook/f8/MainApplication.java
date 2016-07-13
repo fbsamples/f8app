@@ -43,13 +43,15 @@ import java.util.List;
 import cl.json.RNSharePackage;
 
 public class MainApplication extends Application implements ReactApplication {
-
-    private ReactNativePushNotificationPackage mReactNativePushNotificationPackage; 
-    private CallbackManager mCallbackManager;
+    
+    private static CallbackManager mCallbackManager;
+    private ReactNativePushNotificationPackage mReactNativePushNotificationPackage;
 
     @Override
     public void onCreate() {
         super.onCreate();
+        mCallbackManager = new CallbackManager.Factory().create();
+        mReactNativePushNotificationPackage = new ReactNativePushNotificationPackage();
         FacebookSdk.sdkInitialize(getApplicationContext());
     }
 
@@ -71,8 +73,7 @@ public class MainApplication extends Application implements ReactApplication {
          */
         @Override
         protected List<ReactPackage> getPackages() {
-            mReactNativePushNotificationPackage = new ReactNativePushNotificationPackage();
-
+            
             return Arrays.<ReactPackage>asList(
                     new MainReactPackage(),
                     new FBSDKPackage(mCallbackManager),
@@ -97,5 +98,10 @@ public class MainApplication extends Application implements ReactApplication {
           mReactNativePushNotificationPackage.newIntent(intent);
       }
    }
+
+    // Add Get CallbackManager
+    public static CallbackManager getCallbackManager() {
+        return mCallbackManager;
+    }   
 }
 
