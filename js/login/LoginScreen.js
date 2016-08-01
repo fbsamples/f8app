@@ -28,12 +28,14 @@ var Dimensions = require('Dimensions');
 var F8Colors = require('F8Colors');
 var Image = require('Image');
 var React = require('React');
-var StatusBarIOS = require('StatusBarIOS');
+var StatusBar = require('StatusBar');
 var StyleSheet = require('StyleSheet');
 var View = require('View');
 var { Text } = require('F8Text');
 var LoginButton = require('../common/LoginButton');
 var TouchableOpacity = require('TouchableOpacity');
+
+var Platform = require('Platform');
 
 var { skipLogin } = require('../actions');
 var { connect } = require('react-redux');
@@ -44,7 +46,7 @@ class LoginScreen extends React.Component {
   };
 
   componentDidMount() {
-    StatusBarIOS && StatusBarIOS.setStyle('default');
+    Platform.OS === 'ios' && StatusBar && (StatusBar.setBarStyle('light-content'));
     Animated.timing(this.state.anim, {toValue: 3000, duration: 3000}).start();
   }
 
