@@ -52,6 +52,13 @@ We've created a series of tutorials at [makeitopen.com](http://makeitopen.com/) 
   ```
   $ npm start
   ```
+  
+  NOTE: To access to Parse Dashboard via browser, you should set below two env variables.
+  
+  ```
+  $ export PARSE_DASHBOARD_ALLOW_INSECURE_HTTP=1
+  $ export DASHBOARD_AUTH=$username:$password #set username & password you want.
+  ```
 
 5. **Import sample data** (the local Parse Server should be running):
 
