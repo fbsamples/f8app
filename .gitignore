@@ -40,3 +40,5 @@ npm-debug.log
 #
 /release
 /logs
+
+.vscode
