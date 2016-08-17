@@ -60,7 +60,7 @@ type Props = {
   dispatch: Dispatch;
 };
 
-class SessionsCarusel extends React.Component {
+class SessionsCarousel extends React.Component {
   props: Props;
   state: {
     day: number;
@@ -248,4 +248,4 @@ var styles = StyleSheet.create({
   },
 });
 
-module.exports = connect()(SessionsCarusel);
+module.exports = connect()(SessionsCarousel);
