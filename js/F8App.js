@@ -52,7 +52,7 @@ var F8App = React.createClass({
     AppState.addEventListener('change', this.handleAppStateChange);
 
     // TODO: Make this list smaller, we basically download the whole internet
-    this.props.dispatch(loadNotifications());
+    //this.props.dispatch(loadNotifications());
     this.props.dispatch(loadMaps());
     this.props.dispatch(loadConfig());
     this.props.dispatch(loadSessions());
@@ -70,7 +70,7 @@ var F8App = React.createClass({
   handleAppStateChange: function(appState) {
     if (appState === 'active') {
       this.props.dispatch(loadSessions());
-      this.props.dispatch(loadNotifications());
+      //this.props.dispatch(loadNotifications());
       this.props.dispatch(loadSurveys());
       CodePush.sync({installMode: CodePush.InstallMode.ON_NEXT_RESUME});
     }
@@ -88,7 +88,7 @@ var F8App = React.createClass({
           barStyle="light-content"
          />
         <F8Navigator />
-        <PushNotificationsController />
+        {/*<PushNotificationsController />*/}
       </View>
     );
   },
