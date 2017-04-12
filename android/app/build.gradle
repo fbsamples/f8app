@@ -144,7 +144,9 @@ dependencies {
     compile fileTree(dir: "libs", include: ["*.jar"])
     compile "com.android.support:appcompat-v7:23.0.1"
     compile "com.facebook.react:react-native:0+" // From node_modules
-    compile "com.facebook.android:facebook-android-sdk:4.8.1"
+    compile("com.facebook.android:facebook-android-sdk:4.8.1"){
+        force = true
+    }
     compile project(":react-native-linear-gradient")
     compile project(':react-native-code-push')
     compile project(':react-native-push-notification')
