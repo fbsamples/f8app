@@ -20,6 +20,7 @@
  * DEALINGS IN THE SOFTWARE
  *
  */
+
 'use strict';
 
 const {AppRegistry} = require('react-native');
