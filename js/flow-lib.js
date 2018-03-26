@@ -34,3 +34,11 @@ declare var expect: any;
 declare module "graphql" {
   declare var exports: any;
 }
+
+declare module "react-native-linear-gradient" {
+  declare var exports: any;
+}
+
+declare module "resolveAssetSource" {
+  declare var exports: any;
+}

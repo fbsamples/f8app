@@ -18,6 +18,7 @@
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
  * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE
+ * @flow
  */
 
 "use strict";
@@ -29,7 +30,7 @@ import {
   Platform
 } from "react-native";
 
-function F8TouchableIOS(props: Object): ReactElement {
+function F8TouchableIOS(props: Object): ReactElement<TouchableHighlight> {
   return (
     <TouchableHighlight
       accessibilityTraits="button"

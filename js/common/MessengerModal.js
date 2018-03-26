@@ -18,6 +18,7 @@
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
  * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE
+ * @flow
  */
 "use strict";
 
@@ -41,6 +42,8 @@ const APP_STORE = "https://itunes.apple.com/us/app/messenger/id454638411",
 ============================================================================= */
 
 class MessengerModal extends React.Component {
+  static __cards__;
+
   render() {
     return (
       <F8Modal
@@ -88,7 +91,7 @@ class MessengerModal extends React.Component {
     );
   };
 
-  openAppStore = _ => {
+  openAppStore = () => {
     const url = Platform.OS === "ios" ? APP_STORE : PLAY_STORE;
     F8Linking.canOpenURL(url)
       .then(supported => {

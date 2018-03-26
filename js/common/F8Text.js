@@ -18,6 +18,7 @@
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
  * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE
+ * @flow
  */
 
 "use strict";
@@ -34,43 +35,70 @@ import StyleSheet from "./F8StyleSheet";
 // Text Elements
 // =============================================================================
 
-export function Text({ style, ...props }: Object): ReactElement {
+export function Text({
+  style,
+  ...props
+}: Object): ReactElement<ReactNative.Text> {
   return <ReactNative.Text style={[styles.text, style]} {...props} />;
 }
 
-export function Heading1({ style, ...props }: Object): ReactElement {
+export function Heading1({
+  style,
+  ...props
+}: Object): ReactElement<ReactNative.Text> {
   return <ReactNative.Text style={[styles.h1, style]} {...props} />;
 }
 
-export function Heading2({ style, ...props }: Object): ReactElement {
+export function Heading2({
+  style,
+  ...props
+}: Object): ReactElement<ReactNative.Text> {
   return <ReactNative.Text style={[styles.h2, style]} {...props} />;
 }
 
-export function Heading3({ style, ...props }: Object): ReactElement {
+export function Heading3({
+  style,
+  ...props
+}: Object): ReactElement<ReactNative.Text> {
   return <ReactNative.Text style={[styles.h3, style]} {...props} />;
 }
 
-export function Heading4({ style, ...props }: Object): ReactElement {
+export function Heading4({
+  style,
+  ...props
+}: Object): ReactElement<ReactNative.Text> {
   return <ReactNative.Text style={[styles.h4, style]} {...props} />;
 }
 
-export function Heading5({ style, ...props }: Object): ReactElement {
+export function Heading5({
+  style,
+  ...props
+}: Object): ReactElement<ReactNative.Text> {
   return <ReactNative.Text style={[styles.h5, style]} {...props} />;
 }
 
-export function Paragraph({ style, ...props }: Object): ReactElement {
+export function Paragraph({
+  style,
+  ...props
+}: Object): ReactElement<ReactNative.Text> {
   return <ReactNative.Text style={[styles.p, style]} {...props} />;
 }
 
-// export function Hyperlink({style, ...props}: Object): ReactElement {
+// export function Hyperlink({style, ...props}: Object): ReactElement<ReactNative.Text> {
 //   return <ReactNative.Text style={[styles.a, style]} {...props} />;
 // }
 
-export function HeaderTitle({ style, ...props }: Object): ReactElement {
+export function HeaderTitle({
+  style,
+  ...props
+}: Object): ReactElement<ReactNative.Text> {
   return <ReactNative.Text style={[styles.headerTitle, style]} {...props} />;
 }
 
-export function HorizontalRule({ style, ...props }: Object): ReactElement {
+export function HorizontalRule({
+  style,
+  ...props
+}: Object): ReactElement<ReactNative.Text> {
   return <ReactNative.View style={[styles.hr, style]} {...props} />;
 }
 

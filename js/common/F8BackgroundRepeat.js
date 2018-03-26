@@ -18,6 +18,7 @@
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
  * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE
+ * @flow
  */
 "use strict";
 
@@ -36,6 +37,8 @@ import resolveAssetSource from "resolveAssetSource";
 * ==============================================================================
 */
 class F8BackgroundRepeat extends React.Component {
+  static __cards__;
+
   render() {
     const { source, width, height } = this.props;
     const img = resolveAssetSource(source);
@@ -60,7 +63,7 @@ class F8BackgroundRepeat extends React.Component {
     );
   }
 
-  renderRow(colsInRow, idx) {
+  renderRow(colsInRow: number, idx: number) {
     const cols = [];
     for (let i = 0; i < colsInRow; i++) {
       cols.push(this.renderImage(i));
@@ -72,7 +75,7 @@ class F8BackgroundRepeat extends React.Component {
     );
   }
 
-  renderImage(idx) {
+  renderImage(idx: number) {
     return <Image key={`bgRptImg${idx}`} source={this.props.source} />;
   }
 }

@@ -18,6 +18,7 @@
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
  * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE
+ * @flow
  */
 
 "use strict";
@@ -32,7 +33,10 @@ const SECONDARY_FONT = Platform.OS === "android" ? "basis" : "helvetica";
 /* utils ==================================================================== */
 
 // get font name and weight
-function fontWithWeight(family = DEFAULT_FONT, weight = "regular") {
+function fontWithWeight(
+  family: string = DEFAULT_FONT,
+  weight: string = "regular"
+): string {
   return family;
 }
 
@@ -41,7 +45,11 @@ function normalize(size: number): number {
 }
 
 // attempt to normalize x-platform line heights
-function lineHeight(val = 1, scale = 1, normalized = true) {
+function lineHeight(
+  val: number = 1,
+  scale: number = 1,
+  normalized: boolean = true
+): number {
   let adjusted = normalized ? normalize(val) : val;
   return Math.round(Platform.OS === "android" ? adjusted * scale : adjusted);
 }

@@ -18,6 +18,7 @@
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
  * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE
+ * @flow
  */
 
 "use strict";
@@ -39,6 +40,7 @@ const CONTAINER_HEIGHT = 126,
 <ActionsOverlay />
 ============================================================================= */
 class ActionsOverlay extends React.Component {
+  static __cards__;
   static height = CONTAINER_HEIGHT;
   static defaultProps = {
     buttonContainerStyles: {

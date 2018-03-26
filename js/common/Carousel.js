@@ -18,6 +18,7 @@
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
  * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE
+ * @flow
  */
 "use strict";
 
@@ -29,7 +30,7 @@ type Props = {
   count: number,
   selectedIndex: number,
   onSelectedIndexChange?: (index: number) => void,
-  renderCard: (index: number) => ReactElement,
+  renderCard: (index: number) => ReactElement<any>,
   style?: any
 };
 

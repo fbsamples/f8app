@@ -99,7 +99,7 @@ const LOCATION_COLORS = {
 module.exports = {
   ...THEME_COLORS, // pass through all theme colors (named and by-purpose)
 
-  colorWithAlpha(name: ?string = "blue", opacity: number = 1) {
+  colorWithAlpha(name: string = "blue", opacity: number = 1) {
     if (!THEME_COLORS[name]) {
       name = "blue";
     }

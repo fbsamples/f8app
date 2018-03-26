@@ -18,6 +18,7 @@
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
  * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE
+ * @flow
  */
 "use strict";
 
@@ -37,6 +38,8 @@ const WIN_WIDTH = Dimensions.get("window").width,
 */
 
 class LaunchScreen extends React.Component {
+  static __cards__;
+
   render() {
     return (
       <View style={[styles.container, this.props.style]}>
