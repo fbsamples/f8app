@@ -136,7 +136,7 @@ const styles = StyleSheet.create({
   },
   day: {
     color: F8Colors.yellow,
-    fontFamily: F8Fonts.fontWithWeight("basis", "helveticaBold"),
+    fontFamily: F8Fonts.fontWithWeight(F8Fonts.basis, "helveticaBold"),
     fontSize: 13
   },
   time: {

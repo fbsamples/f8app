@@ -240,7 +240,7 @@ class GeneralScheduleView extends React.Component {
         titleStyles={{ marginBottom: 5 }}
         text={`Swipe ${dayDir} for Day ${otherDay}`.toUpperCase()}
         textStyles={{
-          fontFamily: F8Fonts.fontWithWeight("basis", "helvetica"),
+          fontFamily: F8Fonts.fontWithWeight(F8Fonts.basis, "helvetica"),
           color: F8Colors.colorWithAlpha("tangaroa", 0.5),
           fontSize: 13
         }}

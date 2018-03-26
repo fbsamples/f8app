@@ -296,11 +296,11 @@ const styles = StyleSheet.create({
   },
   location: {
     fontSize: 13,
-    fontFamily: F8Fonts.fontWithWeight("basis", "helveticaBold")
+    fontFamily: F8Fonts.fontWithWeight(F8Fonts.basis, "helveticaBold")
   },
   time: {
     color: F8Colors.tangaroa,
-    fontFamily: F8Fonts.fontWithWeight("basis", "helveticaBold")
+    fontFamily: F8Fonts.fontWithWeight(F8Fonts.basis, "helveticaBold")
   },
   title: {
     marginVertical: 15,

@@ -289,7 +289,7 @@ const styles = StyleSheet.create({
   badgeText: {
     backgroundColor: "transparent",
     fontSize: 9,
-    fontFamily: F8Fonts.fontWithWeight("basis", "helveticaBold"),
+    fontFamily: F8Fonts.fontWithWeight(F8Fonts.basis, "helveticaBold"),
     color: F8Colors.white,
 
     ios: {
