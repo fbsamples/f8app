@@ -18,6 +18,7 @@
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
  * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE
+ * @flow
  */
 "use strict";
 
@@ -48,7 +49,7 @@ export default class F8GanttGrid extends React.Component {
     );
   }
 
-  renderColumns(momentStart, count) {
+  renderColumns(momentStart: moment, count: number) {
     let cols = [];
     let previousLabelAMPM = null;
     for (let i = 0; i < count + 1; i++) {
