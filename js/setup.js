@@ -29,7 +29,7 @@ import configureStore from "./store/configureStore";
 import { Provider } from "react-redux";
 
 // Components
-import { Text } from "react-native";
+import { Text, AsyncStorage } from "react-native";
 import F8App from "./F8App";
 import LaunchScreen from "./common/LaunchScreen";
 
@@ -38,6 +38,7 @@ import { serverURL, parseAppID } from "./env";
 
 function setup(): ReactClass<{}> {
   console.disableYellowBox = true;
+  Parse.setAsyncStorage(AsyncStorage);
   Parse.initialize(parseAppID);
   Parse.serverURL = `${serverURL}/parse`;
   console.log("DEBUG!!! " + serverURL);
