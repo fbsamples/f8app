@@ -23,8 +23,19 @@
  */
 
 const fs = require("fs");
+const path = require("path");
 const { exec } = require("child_process");
 const xcode = require("xcode");
+
+const { HOME } = process.env;
+if (HOME && !fs.existsSync(path.join(HOME, "Documents/FacebookSDK"))) {
+  console.log("WARNING: Facebook SDK is not found in ~/Documents/FacebookSDK");
+  console.log(
+    "Please download Facebook SDK from https://developers.facebook.com/docs/ios/"
+  );
+  console.log("and put it in ~/Documents/FacebookSDK");
+  process.exit(1);
+}
 
 const projectPath =
   "node_modules/react-native-native-video-player/ios/RNVideoPlayer.xcodeproj/project.pbxproj";
