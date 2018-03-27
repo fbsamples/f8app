@@ -22,5 +22,7 @@ services:
       - "4040:4040"
   graphql:
     build: ./server/graphql
+    environment:
+      - PARSE_URL=http://parse:1337/parse
     ports:
       - "4000:4000"
