@@ -1,4 +1,4 @@
-FROM node:8.4-alpine
+FROM node:8.11-alpine
 
 RUN ["npm", "install", "-g", "parse-server"]
 
