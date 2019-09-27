@@ -7,7 +7,7 @@
   },
   "dependencies": {
     "lodash": "^4.17.13",
-    "moment": "^2.17.1"
+    "moment": "^2.19.3"
   },
   "devDependencies": {
     "babel-cli": "^6.24.1",
