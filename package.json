@@ -17,7 +17,7 @@
     "crc32": "^0.2.2",
     "idx": "^1.5.0",
     "moment-timezone": "^0.5.11",
-    "parse": "^1.11.0",
+    "parse": "^2.10.0",
     "react": "16.0.0-alpha.6",
     "react-native": "0.44.0",
     "react-native-deprecated-custom-components": "^0.1.1",
